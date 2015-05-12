@@ -8,16 +8,6 @@
 
     <header
         android:fragment="devgui2.devgui2_project.SettingsActivity$NotificationPreferenceFragment"
-        android:title="@string/pref_header_notifications"/>
-
-    <header
-        android:fragment="devgui2.devgui2_project.SettingsActivity$DataSyncPreferenceFragment"
-        android:title="@string/pref_header_data_sync"/><header
-        android:fragment="devgui2.devgui2_project.SettingsActivity$GeneralPreferenceFragment"
-        android:title="@string/pref_header_general" /><header
-        android:fragment="devgui2.devgui2_project.SettingsActivity$NotificationPreferenceFragment"
-        android:title="@string/pref_header_notifications" /><header
-        android:fragment="devgui2.devgui2_project.SettingsActivity$DataSyncPreferenceFragment"
-        android:title="@string/pref_header_data_sync" />
+        android:title="@string/pref_header_sound"/>
 
 </preference-headers>

@@ -1,0 +1,15 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- A 'parent' preference, which enables/disables child preferences (below)
+         when checked/unchecked. -->
+    <CheckBoxPreference
+        android:key="pref_sound_fx"
+        android:title="@string/pref_title_sound_fx"
+        android:defaultValue="true" />
+
+    <CheckBoxPreference
+        android:key="pref_sound_music"
+        android:title="@string/pref_title_music"
+        android:defaultValue="true" />
+
+</PreferenceScreen>
