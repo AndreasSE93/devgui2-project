@@ -24,6 +24,14 @@
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+        <activity
+            android:name=".DifficultySelect"
+            android:label="@string/title_activity_difficulty_select" >
+        </activity>
+        <activity
+            android:name=".CustomDifficulty"
+            android:label="@string/title_activity_custom_difficulty" >
+        </activity>
     </application>
 
 </manifest>
