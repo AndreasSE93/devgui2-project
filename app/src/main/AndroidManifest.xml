@@ -32,6 +32,10 @@
             android:name=".CustomDifficulty"
             android:label="@string/title_activity_custom_difficulty" >
         </activity>
+        <activity
+            android:name=".gridgame"
+            android:label="@string/title_activity_gridgame" >
+        </activity>
     </application>
 
 </manifest>
