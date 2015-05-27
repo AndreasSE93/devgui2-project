@@ -13,7 +13,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select difficulty"
+        android:text="@string/select_difficulty"
         android:id="@+id/textView2"
         android:textSize="40sp"
         android:layout_alignParentTop="true"
@@ -40,7 +40,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Easy"
+                android:text="@string/easy_difficulty"
                 android:id="@+id/button"
                 android:focusable="true"
                 android:enabled="true"
@@ -56,7 +56,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Medium"
+                android:text="@string/medium_difficulty"
                 android:id="@+id/button2"
                 android:focusable="true"
                 android:enabled="true"
@@ -73,7 +73,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hard"
+                android:text="@string/hard_difficulty"
                 android:id="@+id/button3"
                 android:focusable="true"
                 android:enabled="true"
@@ -89,7 +89,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Custom"
+                android:text="@string/custom_difficulty"
                 android:id="@+id/button4"
                 android:focusable="true"
                 android:enabled="true"
