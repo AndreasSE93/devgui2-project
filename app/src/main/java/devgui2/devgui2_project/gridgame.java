@@ -1,67 +1,41 @@
 package devgui2.devgui2_project;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import static android.graphics.Color.*;
+import static android.opengl.ETC1.getHeight;
+import static android.opengl.ETC1.getWidth;
+import static android.view.View.getDefaultSize;
+
 import android.content.Context;
 import android.view.View;
 
-public class DrawView extends View {
-    Paint paint = new Paint();
+public class gridgame extends Activity {
 
-    public DrawView(Context context) {
-        super(context);
-    }
-
-    @Override
-    public void onDraw(Canvas canvas) {
-        paint.setColor(Color.RED;
-        paint.setStrokeWidth(3);
-        canvas.drawRect(30, 30, 30, 30, paint);
-        paint.setStrokeWidth(0);
-        paint.setColor(Color.CYAN);
-        canvas.rect(33, 30, 30, 30, paint );
-        paint.setColor(Color.BLACK);
-        canvas.drawRect(30, 30, 30, 30, paint );
-
-    }
-
-}
-
-
-
-
-
-
-
-
-
-
-
-public class gridgame extends ActionBarActivity {
+    int displayWidth;
+    int displayHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gridgame);
-        Paint paint = new Paint();
-        paint.setColor(Color.parseColor("#CD5C5C"));
-        Bitmap bg = Bitmap.createBitmap(480, 800, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bg);
-        canvas.drawRect(50, 50, 200, 200, paint);
-        LinearLayout ll = (LinearLayout) findViewById(R.id.rect);
-        ll.setBackgroundDrawable(new BitmapDrawable(bg));
+        DrawView drawView = new DrawView(this);
+        Intent intent = getIntent();
+        drawView.setBundle(intent.getExtras());
+        drawView.setBackgroundColor(Color.BLACK);
+        setContentView(drawView);
     }
-
-    //
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -41,7 +41,7 @@ public class CustomDifficulty extends Activity {
 	}
 
 	public void startGame(View view) {
-		Intent intent = new Intent(this, MainScreen.class);
+		Intent intent = new Intent(this, gridgame.class);
 		intent.putExtra("gridWidth",    gridWidthSpinner   .getValue());
 		intent.putExtra("gridHeight",   gridHeightSpinner  .getValue());
 		intent.putExtra("blockMinSize", blockMinSizeSpinner.getValue());
