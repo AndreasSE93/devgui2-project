@@ -10,8 +10,40 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
-
 import static android.graphics.Color.*;
+import android.content.Context;
+import android.view.View;
+
+public class DrawView extends View {
+    Paint paint = new Paint();
+
+    public DrawView(Context context) {
+        super(context);
+    }
+
+    @Override
+    public void onDraw(Canvas canvas) {
+        paint.setColor(Color.RED;
+        paint.setStrokeWidth(3);
+        canvas.drawRect(30, 30, 30, 30, paint);
+        paint.setStrokeWidth(0);
+        paint.setColor(Color.CYAN);
+        canvas.rect(33, 30, 30, 30, paint );
+        paint.setColor(Color.BLACK);
+        canvas.drawRect(30, 30, 30, 30, paint );
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
 
 
 public class gridgame extends ActionBarActivity {
@@ -28,6 +60,8 @@ public class gridgame extends ActionBarActivity {
         LinearLayout ll = (LinearLayout) findViewById(R.id.rect);
         ll.setBackgroundDrawable(new BitmapDrawable(bg));
     }
+
+    //
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
