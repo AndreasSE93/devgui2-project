@@ -1,172 +1,194 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 tools:context=".MainScreen"
-                android:touchscreenBlocksFocus="true">
+                android:touchscreenBlocksFocus="true"
+    >
 
-    <ScrollView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/scrollView2">
+        android:gravity="center_horizontal"
+        >
 
-        <RelativeLayout
+        <ScrollView
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView2"
+            android:fillViewport="false"
+            android:layout_weight="1"
+            android:requiresFadingEdge="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:id="@+id/textView2"
-                android:textSize="40sp"
-                android:textColor="@android:color/primary_text_dark"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/grid_size"
-                android:id="@+id/textView"
-                android:layout_below="@+id/textView2"
-                android:layout_centerHorizontal="true"
-                android:textColor="@android:color/primary_text_dark"/>
-
-            <GridLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView"
-                android:layout_centerHorizontal="true"
-                android:columnCount="2"
-                android:rowCount="2"
-                android:id="@+id/sizeSection">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center_horizontal"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/width_string"
-                    android:id="@+id/widthLabel"
-                    android:textColor="@android:color/primary_text_dark"
-                    android:layout_row="0"
-                    android:layout_column="0"
-                    android:textAlignment="center"
+                    android:text="@string/title_activity_custom_difficulty"
+                    android:id="@+id/title"
+                    android:textSize="40sp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:singleLine="false"
                     />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/height_string"
-                    android:id="@+id/heightLabel"
-                    android:textColor="@android:color/primary_text_dark"
-                    android:layout_column="1"
-                    android:layout_row="0"
+                    android:text="@string/grid_size"
+                    android:id="@+id/gridSizeLabel"
+                    android:layout_below="@+id/title"
+                    android:layout_centerHorizontal="true"
                     />
 
-                <NumberPicker
+                <GridLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/gridWidthSpinner"
-                    android:layout_row="1"
-                    android:layout_column="0"
-                    android:padding="10sp"
-                    />
+                    android:layout_below="@+id/gridSizeLabel"
+                    android:layout_centerHorizontal="true"
+                    android:columnCount="2"
+                    android:rowCount="2"
+                    android:id="@+id/sizeSection">
 
-                <NumberPicker
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/gridHeightSpinner"
-                    android:layout_row="1"
-                    android:layout_column="1"
-                    android:padding="10sp"
-                    android:nestedScrollingEnabled="false"
-                    android:soundEffectsEnabled="true">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="@string/width_string"
+                        android:id="@+id/widthLabel"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_horizontal"
+                        android:labelFor="@+id/gridWidthSpinner"/>
 
-                </NumberPicker>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="@string/height_string"
+                        android:id="@+id/heightLabel"
+                        android:layout_column="1"
+                        android:layout_row="0"
+                        android:layout_gravity="center_horizontal"
+                        android:labelFor="@+id/gridHeightSpinner"/>
 
-            </GridLayout>
+                    <NumberPicker
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/gridWidthSpinner"
+                        android:layout_row="1"
+                        android:layout_column="0"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/block_size"
-                android:id="@+id/textView5"
-                android:textColor="@android:color/primary_text_dark"
-                android:layout_row="0"
-                android:layout_column="0"
-                android:layout_below="@+id/sizeSection"
-                android:layout_alignParentLeft="false"
-                android:layout_alignParentRight="false"
-                android:layout_alignWithParentIfMissing="false"
-                android:layout_alignParentTop="false"
-                android:layout_centerHorizontal="true"/>
+                    <NumberPicker
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/gridHeightSpinner"
+                        android:layout_row="1"
+                        android:layout_column="1"
+                        android:nestedScrollingEnabled="false"
+                        android:soundEffectsEnabled="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        >
 
-            <GridLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:columnCount="2"
-                android:rowCount="2"
-                android:id="@+id/blockSizeSection"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/textView5">
+                    </NumberPicker>
+
+                </GridLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/min_string"
-                    android:id="@+id/textView3"
-                    android:textColor="@android:color/primary_text_dark"
+                    android:text="@string/block_size"
+                    android:id="@+id/blockSizeLabel"
                     android:layout_row="0"
-                    android:layout_column="0"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/max_string"
-                    android:id="@+id/textView4"
-                    android:textColor="@android:color/primary_text_dark"
-                    android:layout_column="1"
-                    android:layout_row="0"/>
-
-                <NumberPicker
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/blockMinSize"
-                    android:layout_row="1"
                     android:layout_column="0"
-                    android:padding="10sp">
+                    android:layout_below="@+id/sizeSection"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentRight="false"
+                    android:layout_alignWithParentIfMissing="false"
+                    android:layout_alignParentTop="false"
+                    android:layout_centerHorizontal="true"/>
 
-                </NumberPicker>
-
-                <NumberPicker
+                <GridLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/blockMaxSize"
-                    android:layout_row="1"
-                    android:layout_column="1"
-                    android:padding="10sp">
+                    android:columnCount="2"
+                    android:rowCount="2"
+                    android:id="@+id/blockSizeSection"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/blockSizeLabel">
 
-                </NumberPicker>
-            </GridLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="@string/min_string"
+                        android:id="@+id/blockMinSizeLabel"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:layout_gravity="center_horizontal"
+                        android:labelFor="@+id/blockMinSize"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/start_button"
-                android:id="@+id/startButton"
-                android:layout_below="@+id/blockSizeSection"
-                android:layout_centerHorizontal="true"
-                android:onClick="startGame"/>
-        </RelativeLayout>
-    </ScrollView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="@string/max_string"
+                        android:id="@+id/blockMaxSizeLabel"
+                        android:layout_column="1"
+                        android:layout_row="0"
+                        android:layout_gravity="center_horizontal"
+                        android:labelFor="@+id/blockMaxSize"/>
+
+                    <NumberPicker
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/blockMinSize"
+                        android:layout_row="1"
+                        android:layout_column="0"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp">
+
+                    </NumberPicker>
+
+                    <NumberPicker
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/blockMaxSize"
+                        android:layout_row="1"
+                        android:layout_column="1"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp">
+
+                    </NumberPicker>
+                </GridLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/start_button"
+            android:id="@+id/startButton"
+            android:layout_centerHorizontal="true"
+            android:onClick="startGame"
+            />
+    </LinearLayout>
+
 </RelativeLayout>
