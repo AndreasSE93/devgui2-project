@@ -13,8 +13,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/select_difficulty"
-        android:id="@+id/textView2"
+        android:text="@string/title_activity_difficulty_select"
+        android:id="@+id/title"
         android:textSize="40sp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"/>
@@ -23,14 +23,14 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/scrollView"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/title"
         android:layout_alignStart="@+id/linearLayout">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_below="@+id/textView2"
+            android:layout_below="@+id/title"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="31dp"
@@ -49,7 +49,7 @@
                 android:paddingRight="20sp"
                 android:paddingTop="10sp"
                 android:paddingBottom="10sp"
-                android:layout_below="@+id/textView2"
+                android:layout_below="@+id/title"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="20sp"/>
 
