@@ -97,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Block size"
+                android:text="@string/block_size"
                 android:id="@+id/textView5"
                 android:textColor="@android:color/primary_text_dark"
                 android:layout_row="0"
