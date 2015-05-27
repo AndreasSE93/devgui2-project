@@ -19,90 +19,90 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"/>
 
-    <ScrollView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/scrollView"
         android:layout_below="@+id/title"
-        android:layout_alignStart="@+id/linearLayout">
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="center_vertical|center_horizontal"
+        android:id="@+id/linearLayout">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px"
+            android:layout_weight="0.5"/>
+
+        <Button
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/easy_difficulty"
+            android:id="@+id/easyButton"
+            android:focusable="true"
+            android:enabled="true"
+            android:textSize="40sp"
             android:layout_below="@+id/title"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="31dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:id="@+id/linearLayout">
+            android:layout_centerHorizontal="true"
+            android:onClick="play"
+            android:layout_weight="1"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/easy_difficulty"
-                android:id="@+id/button"
-                android:focusable="true"
-                android:enabled="true"
-                android:textSize="40sp"
-                android:paddingLeft="20sp"
-                android:paddingRight="20sp"
-                android:paddingTop="10sp"
-                android:paddingBottom="10sp"
-                android:layout_below="@+id/title"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="20sp"/>
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px"
+            android:layout_weight="0.5"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/medium_difficulty"
-                android:id="@+id/button2"
-                android:focusable="true"
-                android:enabled="true"
-                android:textSize="40sp"
-                android:paddingLeft="20sp"
-                android:paddingRight="20sp"
-                android:paddingTop="10sp"
-                android:paddingBottom="10sp"
-                android:layout_above="@+id/button3"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="20sp"
-                />
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/medium_difficulty"
+            android:id="@+id/mediumButton"
+            android:focusable="true"
+            android:enabled="true"
+            android:textSize="40sp"
+            android:layout_above="@+id/hardButton"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/hard_difficulty"
-                android:id="@+id/button3"
-                android:focusable="true"
-                android:enabled="true"
-                android:textSize="40sp"
-                android:paddingLeft="20sp"
-                android:paddingRight="20sp"
-                android:paddingTop="10sp"
-                android:paddingBottom="10sp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="20sp"/>
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px"
+            android:layout_weight="0.5"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/custom_difficulty"
-                android:id="@+id/button4"
-                android:focusable="true"
-                android:enabled="true"
-                android:textSize="40sp"
-                android:paddingLeft="20sp"
-                android:paddingRight="20sp"
-                android:paddingTop="10sp"
-                android:paddingBottom="10sp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="20sp"
-                android:onClick="custom"/>
-        </LinearLayout>
-    </ScrollView>
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hard_difficulty"
+            android:id="@+id/hardButton"
+            android:focusable="true"
+            android:enabled="true"
+            android:textSize="40sp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"/>
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px"
+            android:layout_weight="0.5"/>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/custom_difficulty"
+            android:id="@+id/customButton"
+            android:focusable="true"
+            android:enabled="true"
+            android:textSize="40sp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:onClick="custom"
+            android:layout_weight="1"/>
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px"
+            android:layout_weight="0.5"/>
+    </LinearLayout>
 
 </RelativeLayout>
