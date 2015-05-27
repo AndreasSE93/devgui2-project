@@ -17,4 +17,6 @@
     <string name="start_button">Start</string>
     <string name="settings_button">Settings</string>
     <string name="scores_button">Scores</string>
+    <string name="min_string">Min</string>
+    <string name="max_string">Max</string>
 </resources>
