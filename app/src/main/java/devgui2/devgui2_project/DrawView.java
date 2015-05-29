@@ -4,6 +4,7 @@ package devgui2.devgui2_project;
  * Created by redhotsmasher on 2015-05-27.
  */
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -16,13 +17,15 @@ public class DrawView extends View
     Paint paint = new Paint();
     int gridWidth;
     int gridHeight;
-    int blockMinSize;
-    int blockMaxSize;
+    Piece[] pieces;
+    float blockLength;
+    boolean init;
 
-    public DrawView(Context context)
+    public DrawView(Context context, Bundle bundle)
     {
         super(context);
         paint.setColor(Color.GRAY);
+        this.bundle = bundle;
     }
 
     @Override
@@ -30,6 +33,8 @@ public class DrawView extends View
     {
         int drawWidth = this.getWidth();
         int drawHeight = this.getHeight();
+        gridWidth = bundle.getInt("gridWidth");
+        gridHeight = bundle.getInt("gridHeight");
         float aspectRatio = (float)drawWidth/(float)drawHeight;
         float xMargin;
         float yMargin;
@@ -53,11 +58,6 @@ public class DrawView extends View
             yMargin = 0;
         }
 
-        float startX;
-        float startY;
-        float endX;
-        float endY;
-
         float gridRatio = (float)gridWidth/(float)gridHeight;
         float gridAreaWidth = (float)drawWidth - 2*xMargin;
         float gridAreaHeight = (float)drawHeight - 2*yMargin;
@@ -65,7 +65,6 @@ public class DrawView extends View
         float gridY;
         float gridX2;
         float gridY2;
-        float blockLength;
         if (gridRatio > 1) {
             //Wide
             blockLength = gridAreaWidth/(float)gridWidth;
@@ -81,7 +80,7 @@ public class DrawView extends View
             gridX2 = gridX + blockLength * gridWidth;
             gridY2 = drawHeight - yMargin;
         } else {
-            blockLength = gridAreaWidth / (float) gridWidth;
+            blockLength = gridAreaWidth/(float)gridWidth;
             gridX = xMargin;
             gridY = yMargin;
             gridX2 = drawWidth - xMargin;
@@ -98,6 +97,33 @@ public class DrawView extends View
             canvas.drawLine(gridX, gridY+offset, gridX2, gridY+offset, paint);
         }
 
+        if (init == false) {
+            for (Piece piece : pieces) {
+                android.util.Log.i("BlockLength: ", ((Float)blockLength).toString());
+                piece.initBitmap(blockLength);
+            }
+            init = true;
+        }
+
+        for (Piece piece : pieces) {
+            float rot = piece.getRot();
+            int x = piece.getX();
+            int y = piece.getY();
+            Bitmap bitmap = piece.getBitmap();
+            canvas.save();
+            canvas.rotate(rot, x + (bitmap.getWidth() / 2), y + (bitmap.getHeight() / 2));
+            canvas.drawBitmap(bitmap, x, y, null);
+            canvas.restore();
+            android.util.Log.i("X: ", ((Integer) x).toString());
+            android.util.Log.i("Y: ", ((Integer) y).toString());
+            android.util.Log.i("Rot: ", ((Float) rot).toString());
+            android.util.Log.i("BitmapW: ", ((Integer) bitmap.getWidth()).toString());
+            android.util.Log.i("BitmapH: ", ((Integer) bitmap.getHeight()).toString());
+            //int[] pixels = new int[100];
+            //bitmap.getPixels(pixels, 0, bitmap.getWidth(), 0, 0, 9, 9);
+            //android.util.Log.i("Bitmap: ", pixels.toString());
+        }
+
         //canvas.drawLine(startX, startY, endX, endY, paint);
         //canvas.drawRect(xMargin, yMargin, drawWidth-xMargin, drawHeight-yMargin, paint);
         /*
@@ -109,11 +135,11 @@ public class DrawView extends View
         */
     }
 
-    public void setBundle(Bundle bundle) {
-        this.bundle = bundle;
-        gridWidth = bundle.getInt("gridWidth");
-        gridHeight = bundle.getInt("gridHeight");
-        blockMinSize = bundle.getInt("blockMinSize");
-        blockMaxSize = bundle.getInt("blockMaxSize");
+    public float getBlockLength() {
+        return blockLength;
+    }
+
+    public void setPieces(Piece[] pieces) {
+        this.pieces = pieces;
     }
 }

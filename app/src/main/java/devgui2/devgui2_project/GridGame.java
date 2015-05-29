@@ -21,7 +21,7 @@ import static android.view.View.getDefaultSize;
 import android.content.Context;
 import android.view.View;
 
-public class gridgame extends Activity {
+public class GridGame extends Activity {
 
     int displayWidth;
     int displayHeight;
@@ -30,10 +30,23 @@ public class gridgame extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gridgame);
-        DrawView drawView = new DrawView(this);
-        Intent intent = getIntent();
-        drawView.setBundle(intent.getExtras());
+        DrawView drawView = new DrawView(this, getIntent().getExtras());
         drawView.setBackgroundColor(Color.BLACK);
         setContentView(drawView);
+        float blockLength = drawView.getBlockLength();
+        boolean[][] shape = new boolean[2][3];
+        shape[0][0] = true;
+        shape[0][1] = true;
+        shape[0][2] = true;
+        shape[1][0] = false;
+        shape[1][1] = false;
+        shape[1][2] = true;
+        Piece piece = new Piece(Color.RED, 0, shape);
+        piece.setX(50);
+        piece.setY(50);
+        Piece[] pieces = new Piece[1];
+        pieces[0] = piece;
+        drawView.setPieces(pieces);
+        drawView.invalidate();
     }
 }
