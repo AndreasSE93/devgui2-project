@@ -107,7 +107,7 @@ public class GridMaker {
 			}
 			android.util.Log.d("GridMaker", Integer.toString(minX) + " " + Integer.toString(maxX) + " " + Integer.toString(minY) + " " + Integer.toString(maxY));
 			android.util.Log.d("GridMaker", "Block " + Integer.toString(i) + ": " + Arrays.deepToString(blockMap));
-			pieces[i] = new Piece(color, blockMap);
+			pieces[i] = new Piece(color, 0, blockMap);
 		}
 		android.util.Log.d("GridMaker", "List done: length=" + Integer.toString(pieces.length));
 		android.util.Log.d("GridMaker", Arrays.deepToString(grid));
