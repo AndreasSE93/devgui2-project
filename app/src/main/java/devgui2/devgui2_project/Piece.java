@@ -8,15 +8,15 @@ import android.graphics.Color;
  */
 public class Piece {
 
-    Color color;
+    int color;
     int pattern;
-    Boolean[][] shape;
+    boolean[][] shape;
     Bitmap bitmap;
     int x;
     int y;
     float rot;
 
-    public Piece(Color color, Boolean[][] shape) {
+    public Piece(int color, boolean[][] shape) {
         this.color = color;
         this.shape = shape;
         // Redner bitmap here plz
