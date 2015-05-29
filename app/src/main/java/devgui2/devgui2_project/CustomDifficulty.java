@@ -2,10 +2,7 @@ package devgui2.devgui2_project;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.NumberPicker;
 //import android.widget.NumberPicker;
@@ -41,7 +38,7 @@ public class CustomDifficulty extends Activity {
 	}
 
 	public void startGame(View view) {
-		Intent intent = new Intent(this, gridgame.class);
+		Intent intent = new Intent(this, GridGame.class);
 		intent.putExtra("gridWidth",    gridWidthSpinner   .getValue());
 		intent.putExtra("gridHeight",   gridHeightSpinner  .getValue());
 		intent.putExtra("blockMinSize", blockMinSizeSpinner.getValue());

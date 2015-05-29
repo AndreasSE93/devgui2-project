@@ -21,7 +21,7 @@ import static android.view.View.getDefaultSize;
 import android.content.Context;
 import android.view.View;
 
-public class gridgame extends Activity {
+public class GridGame extends Activity {
 
     int displayWidth;
     int displayHeight;

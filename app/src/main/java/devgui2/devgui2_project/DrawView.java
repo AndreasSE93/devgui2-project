@@ -16,8 +16,6 @@ public class DrawView extends View
     Paint paint = new Paint();
     int gridWidth;
     int gridHeight;
-    int blockMinSize;
-    int blockMaxSize;
 
     public DrawView(Context context)
     {
@@ -113,7 +111,5 @@ public class DrawView extends View
         this.bundle = bundle;
         gridWidth = bundle.getInt("gridWidth");
         gridHeight = bundle.getInt("gridHeight");
-        blockMinSize = bundle.getInt("blockMinSize");
-        blockMaxSize = bundle.getInt("blockMaxSize");
     }
 }
