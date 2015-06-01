@@ -27,9 +27,9 @@ public class Piece {
     public void initBitmap(float blockLength) {
         int xSize = this.shape.length;
         int ySize = this.shape[0].length;
-        android.util.Log.i("PieceXSize: ", ((Integer) xSize).toString());
-        android.util.Log.i("PieceYSize: ", ((Integer) ySize).toString());
-        android.util.Log.i("BlockLength: ", ((Float) blockLength).toString());
+        //android.util.Log.i("PieceXSize: ", ((Integer) xSize).toString());
+        //android.util.Log.i("PieceYSize: ", ((Integer) ySize).toString());
+        //android.util.Log.i("BlockLength: ", ((Float) blockLength).toString());
         bitmap = Bitmap.createBitmap((int)(xSize*blockLength)+1, (int)(ySize*blockLength)+1, Bitmap.Config.ARGB_8888);
         int color2 = Color.argb(255, Color.red(color)/2, Color.green(color)/2,Color.blue(color)/2);
         Canvas temp = new Canvas(bitmap);

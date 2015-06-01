@@ -7,8 +7,11 @@ import android.view.ViewTreeObserver;
 
 public class GridGame extends Activity {
 
+	Piece[] pieces;
+	Integer canvasSavedWidth, canvasSavedHeight;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gridgame);
         final DrawView drawView = new DrawView(this, getIntent().getExtras());
@@ -18,14 +21,20 @@ public class GridGame extends Activity {
 	    final int gridHeight   = getIntent().getIntExtra("gridHeight",   5);
 	    final int blockMinSize = getIntent().getIntExtra("blockMinSize", 3);
 	    final int blockMaxSize = getIntent().getIntExtra("blockMaxSize", 3);
-	    final Piece[] pieces = GridMaker.makeGrid(gridWidth, gridHeight, blockMinSize, blockMaxSize);
+	    if (savedInstanceState != null) {
+		    this.pieces = (Piece[])savedInstanceState.getSerializable("pieces");
+	    } else {
+		    this.pieces = GridMaker.makeGrid(gridWidth, gridHeight, blockMinSize, blockMaxSize);
+	    }
+	    final Piece[] pieces = this.pieces;
 	    drawView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 		    @Override
 		    public void onGlobalLayout() {
 			    drawView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-
 			    final int canvasWidth  = drawView.getWidth();
 			    final int canvasHeight = drawView.getHeight();
+			    canvasSavedWidth  = canvasWidth;
+			    canvasSavedHeight = canvasHeight;
 			    final float aspectRatio = (float)canvasWidth / (float)canvasHeight;
 			    float xMargin;
 			    float yMargin;
@@ -77,12 +86,26 @@ public class GridGame extends Activity {
 
 			    for (int i = 0; i < pieces.length; i++) {
 				    pieces[i].initBitmap(blockLength);
-				    pieces[i].setX((int)(Math.random() * canvasWidth));
-				    pieces[i].setY((int)(Math.random() * canvasHeight));
+				    if (savedInstanceState != null) {
+					    final int oldWidth  = savedInstanceState.getInt("canvasWidth");
+					    final int oldHeight = savedInstanceState.getInt("canvasHeight");
+					    pieces[i].setX((int)(((float)(pieces[i].getX())) / oldWidth  * canvasWidth));
+					    pieces[i].setY((int)(((float)(pieces[i].getY())) / oldHeight * canvasHeight));
+				    } else {
+					    pieces[i].setX((int) (Math.random() * (canvasWidth - pieces[i].getBitmap().getWidth())));
+					    pieces[i].setY((int) (Math.random() * (canvasHeight - pieces[i].getBitmap().getHeight())));
+				    }
 			    }
 			    drawView.init(gridX1, gridY1, gridX2, gridY2, gridWidth, gridHeight, blockLength);
 			    drawView.setPieces(pieces);
 		    }
 	    });
     }
+
+	@Override
+	public void onSaveInstanceState(Bundle bundle) {
+		bundle.putSerializable("pieces", this.pieces);
+		bundle.putInt("canvasWidth",  canvasSavedWidth);
+		bundle.putInt("canvasHeight", canvasSavedHeight);
+	}
 }

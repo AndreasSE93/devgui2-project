@@ -33,7 +33,6 @@ public class DrawView extends View
     {
         for (int i = 0; i <= gridWidth; i++) { //Draw longitudinal lines
             float offset = (float)(i) * blockLength;
-	        Log.d("onDraw", "offset=" + Float.toString(offset) + ", gridWidth=" + Float.toString(gridWidth));
             canvas.drawLine(gridX1 + offset, gridY1, gridX1 + offset, gridY2, paint);
         }
 
