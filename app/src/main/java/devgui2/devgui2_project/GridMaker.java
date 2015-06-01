@@ -21,7 +21,7 @@ public class GridMaker {
 		while (true) {
 			int x = (int)(Math.random() * gridWidth);
 			int y = (int)(Math.random() * gridHeight);
-			android.util.Log.d("GridMaker", "x=" + Integer.toString(x) + ", y=" + Integer.toString(y));
+			//android.util.Log.d("GridMaker", "x=" + Integer.toString(x) + ", y=" + Integer.toString(y));
 			int origX = x, origY = y;
 			while (grid[x][y] != -1) {
 				x++;
@@ -32,13 +32,15 @@ public class GridMaker {
 						y = 0;
 					}
 				}
-				android.util.Log.d("GridMaker", "Occupied... x=" + Integer.toString(x) + ", y=" + Integer.toString(y));
+				//android.util.Log.d("GridMaker", "Occupied... x=" + Integer.toString(x) + ", y=" + Integer.toString(y));
 				if (x == origX && y == origY) {
-					android.util.Log.d("GridMaker", "No more empty spaces");
+					//android.util.Log.d("GridMaker", "No more empty spaces");
 					break emptyCellFinder;
 				}
 			}
-			for (int dir = 0; dir < 4; dir++) {
+			int dir = (int)(Math.random() * 4);
+			int origDir = dir;
+			while (true) {
 				int nX = x, nY = y;  // Neighboring piece coordinates
 				switch (dir) {
 					case 0:
@@ -56,26 +58,31 @@ public class GridMaker {
 					default:
 						throw new RuntimeException("No dir " + Integer.toString(dir));
 				}
-				if (nX < 0 || nY < 0 || nX >= gridWidth || nY >= gridHeight) {
-					android.util.Log.d("GridMaker", "Neighbor outside grid: nX=" + Integer.toString(nX) + ", xY=" + Integer.toString(nY));
-					continue;
+				//android.util.Log.d("GridMaker", "x=" + Integer.toString(x) + ", y=" + Integer.toString(y) + ", nX=" + Integer.toString(nX) + ", nY=" + Integer.toString(nY) + ", dir=" + Integer.toString(dir) + ", origDir=" + Integer.toString(origDir));
+				if (nX >= 0 && nY >= 0 && nX < gridWidth && nY < gridHeight) {
+					int nPiece = grid[nX][nY];
+					if (nPiece == -1) {
+						nPiece = pieceSizes.size();
+						grid[ x][ y] = nPiece;
+						grid[nX][nY] = nPiece;
+						pieceSizes.add(2);
+						pieceMaxSizes.add((int) (Math.random() * (maxSize - minSize + 1)) + minSize);
+						//android.util.Log.d("GridMaker", "New block: maxSize=" + pieceMaxSizes.get(pieceMaxSizes.size()-1).toString());
+						continue emptyCellFinder;
+					} else if (pieceSizes.get(nPiece) < pieceMaxSizes.get(nPiece)) {
+						grid[x][y] = nPiece;
+						pieceSizes.set(nPiece, pieceSizes.get(nPiece) + 1);
+						continue emptyCellFinder;
+					}
+				} else {
+					//android.util.Log.d("GridMaker", "Neighbor outside grid: nX=" + Integer.toString(nX) + ", xY=" + Integer.toString(nY));
 				}
-				int nPiece = grid[nX][nY];
-				if (nPiece == -1) {
-					nPiece = pieceSizes.size();
-					grid[ x][ y] = nPiece;
-					grid[nX][nY] = nPiece;
-					pieceSizes.add(2);
-					pieceMaxSizes.add((int) (Math.random() * (maxSize - minSize)) + minSize);
-					android.util.Log.d("GridMaker", "New block: maxSize=" + pieceMaxSizes.get(pieceMaxSizes.size()-1).toString());
-					continue emptyCellFinder;
-				} else if (pieceSizes.get(nPiece) < pieceMaxSizes.get(nPiece)) {
-					grid[x][y] = nPiece;
-					pieceSizes.set(nPiece, pieceSizes.get(nPiece) + 1);
-					continue emptyCellFinder;
+				dir = (dir + 1) % 4;
+				if (dir == origDir) {
+					break;
 				}
 			}
-			android.util.Log.e("GridMaker", "Block can't join with any neighbor: (" + Integer.toString(x) + ", " + Integer.toString(y) + ")");
+			android.util.Log.d("GridMaker", "Block can't join with any neighbor: (" + Integer.toString(x) + ", " + Integer.toString(y) + ")");
 			grid[x][y] = pieceSizes.size();
 			pieceSizes.add(1);
 			pieceMaxSizes.add(1);
@@ -106,14 +113,14 @@ public class GridMaker {
 					blockMap[x][y] = grid[minX + x][minY + y] == i;
 				}
 			}
-			android.util.Log.d("GridMaker", Integer.toString(minX) + " " + Integer.toString(maxX) + " " + Integer.toString(minY) + " " + Integer.toString(maxY));
+			//android.util.Log.d("GridMaker", Integer.toString(minX) + " " + Integer.toString(maxX) + " " + Integer.toString(minY) + " " + Integer.toString(maxY));
 			android.util.Log.d("GridMaker", "Block " + Integer.toString(i) + ": " + Arrays.deepToString(blockMap));
 			pieces[i] = new Piece(color, 0, blockMap);
 		}
-		android.util.Log.d("GridMaker", "List done: length=" + Integer.toString(pieces.length));
-		android.util.Log.d("GridMaker", Arrays.deepToString(grid));
-		android.util.Log.d("GridMaker", Arrays.toString(pieceSizes.toArray()));
-		android.util.Log.d("GridMaker", Arrays.toString(pieceMaxSizes.toArray()));
+		android.util.Log.i("GridMaker", "Grid done (" + Integer.toString(pieces.length) + " Pieces)");
+		android.util.Log.i("GridMaker", "Grid: " + Arrays.deepToString(grid));
+		android.util.Log.d("GridMaker", "Block sizes:     " + Arrays.toString(pieceSizes.toArray()));
+		android.util.Log.d("GridMaker", "Block max sizes: " + Arrays.toString(pieceMaxSizes.toArray()));
 		return pieces;
 	}
 }

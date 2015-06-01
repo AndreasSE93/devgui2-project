@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Arrays;
@@ -17,13 +18,15 @@ public class GridMakerTest extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_grid_maker_test);
-		run(null);
 	}
 
 	public void run(View view) {
 		TextView textView = (TextView)findViewById(R.id.text);
-		Piece[] pieces = GridMaker.makeGrid(5, 5, 3, 3);
-		textView.append(Arrays.toString(pieces) + "\n");
-		android.util.Log.d("GridMakerTest", Arrays.toString(pieces));
+		int gridWidth    = Integer.parseInt(((EditText)findViewById(R.id.gridWidth   )).getText().toString());
+		int gridHeight   = Integer.parseInt(((EditText)findViewById(R.id.gridHeight  )).getText().toString());
+		int blockMinSize = Integer.parseInt(((EditText)findViewById(R.id.blockMinSize)).getText().toString());
+		int blockMaxSize = Integer.parseInt(((EditText)findViewById(R.id.blockMaxSize)).getText().toString());
+		Piece[] pieces = GridMaker.makeGrid(gridWidth, gridHeight, blockMinSize, blockMaxSize);
+		textView.append("Got " + Integer.toString(pieces.length) + " Pieces." + "\n");
 	}
 }

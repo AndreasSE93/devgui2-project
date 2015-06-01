@@ -13,18 +13,79 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:id="@+id/gridWidth"
+                android:hint="gridWidth"
+                android:editable="true"
+                android:numeric="integer"
+                android:layout_weight="1"
+                android:text="5"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:id="@+id/gridHeight"
+                android:hint="gridHeight"
+                android:editable="true"
+                android:numeric="integer"
+                android:layout_weight="1"
+                android:text="5"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:id="@+id/blockMinSize"
+                android:hint="blockMinSize"
+                android:editable="true"
+                android:numeric="integer"
+                android:layout_weight="1"
+                android:text="3"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:id="@+id/blockMaxSize"
+                android:hint="blockMaxSize"
+                android:editable="true"
+                android:numeric="integer"
+                android:layout_weight="1"
+                android:text="3"/>
+        </LinearLayout>
+
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Run"
             android:id="@+id/button"
             android:onClick="run"/>
 
-        <TextView
+        <EditText
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:ems="10"
             android:id="@+id/text"
-            android:inputType="none"
-            android:focusable="true"/>
+            android:enabled="true"
+            android:gravity="start"
+            android:textSize="@dimen/abc_text_size_small_material"
+            android:elegantTextHeight="false"/>
+
     </LinearLayout>
+
 </RelativeLayout>
