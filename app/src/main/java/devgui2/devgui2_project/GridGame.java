@@ -34,7 +34,7 @@ public class GridGame extends Activity {
         drawView.setBackgroundColor(Color.BLACK);
         setContentView(drawView);
         float blockLength = drawView.getBlockLength();
-        Boolean[][] shape = new Boolean[2][3];
+        boolean[][] shape = new boolean[2][3];
         shape[0][0] = true;
         shape[0][1] = true;
         shape[0][2] = true;

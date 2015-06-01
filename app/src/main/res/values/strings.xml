@@ -3,6 +3,7 @@
     <string name="title_activity_difficulty_select">Difficulty select</string>
     <string name="title_activity_custom_difficulty">Custom difficulty</string>
     <string name="title_activity_gridgame">Grid game</string>
+    <string name="title_activity_grid_maker_test">GridMaker test</string>
     <string name="title_name">DevGui project</string>
     <string name="grid_size">Grid size</string>
     <string name="width_string">Width</string>

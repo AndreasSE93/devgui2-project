@@ -12,13 +12,13 @@ public class Piece {
 
     private int color;
     private int pattern;
-    private Boolean[][] shape;
+    private boolean[][] shape;
     private Bitmap bitmap;
     private int x;
     private int y;
     private float rot;
 
-    public Piece(int color, int pattern, Boolean[][] shape) {
+    public Piece(int color, int pattern, boolean[][] shape) {
         this.color = color;
         this.pattern = pattern;
         this.shape = shape;
@@ -56,7 +56,7 @@ public class Piece {
         return pattern;
     }
 
-    public Boolean[][] getShape() {
+    public boolean[][] getShape() {
         return shape;
     }
 
