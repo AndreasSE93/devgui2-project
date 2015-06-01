@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import static android.graphics.Color.*;
 import static android.opengl.ETC1.getHeight;
@@ -23,30 +24,35 @@ import android.view.View;
 
 public class GridGame extends Activity {
 
-    int displayWidth;
-    int displayHeight;
+	int canvasWidth;
+	int canvasHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gridgame);
-        DrawView drawView = new DrawView(this, getIntent().getExtras());
+        final DrawView drawView = new DrawView(this, getIntent().getExtras());
         drawView.setBackgroundColor(Color.BLACK);
         setContentView(drawView);
         float blockLength = drawView.getBlockLength();
-        boolean[][] shape = new boolean[2][3];
-        shape[0][0] = true;
-        shape[0][1] = true;
-        shape[0][2] = true;
-        shape[1][0] = false;
-        shape[1][1] = false;
-        shape[1][2] = true;
-        Piece piece = new Piece(Color.RED, 0, shape);
-        piece.setX(50);
-        piece.setY(50);
-        Piece[] pieces = new Piece[1];
-        pieces[0] = piece;
-        drawView.setPieces(pieces);
-        drawView.invalidate();
+	    int gridWidth    = getIntent().getIntExtra("gridWidth",    5);
+	    int gridHeight   = getIntent().getIntExtra("gridHeight",   5);
+	    int blockMinSize = getIntent().getIntExtra("blockMinSize", 3);
+	    int blockMaxSize = getIntent().getIntExtra("blockMaxSize", 3);
+	    final Piece[] pieces = GridMaker.makeGrid(gridWidth, gridHeight, blockMinSize, blockMaxSize);
+	    drawView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+		    @Override
+		    public void onGlobalLayout() {
+			    drawView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+			    canvasWidth  = drawView.getWidth();
+			    canvasHeight = drawView.getHeight();
+			    for (int i = 0; i < pieces.length; i++) {
+				    pieces[i].setX((int) (Math.random() * canvasWidth));
+				    pieces[i].setY((int) (Math.random() * canvasHeight));
+			    }
+			    drawView.setPieces(pieces);
+			    drawView.invalidate();
+		    }
+	    });
     }
 }
