@@ -1,0 +1,14 @@
+<resources>
+    <string name="title_activity_settings">Inställningar</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">Generellt</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_sound">Ljud</string>
+    <string name="pref_title_color_blind_mode">Färgblind-läge</string>
+    <string name="pref_title_sound_fx">Ljudeffekter</string>
+    <string name="pref_title_music">Musik</string>
+</resources>

@@ -1,0 +1,14 @@
+<resources>
+    <string name="title_activity_settings">Einstellungen</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">Allgemeine</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_sound">Schall</string>
+    <string name="pref_title_color_blind_mode">Farbenblind-modus</string>
+    <string name="pref_title_sound_fx">Schalleffekte</string>
+    <string name="pref_title_music">Musik</string>
+</resources>

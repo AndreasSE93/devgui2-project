@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">DevGui2-projekt</string>
+    <string name="title_activity_difficulty_select">Schwierigkeit wählen</string>
+    <string name="title_activity_custom_difficulty">Angepasste schwierigkeit</string>
+    <string name="title_activity_gridgame">Grid game</string>
+    <string name="title_activity_grid_maker_test">GridMaker test</string>
+    <string name="title_name">DevGui-projekt</string>
+    <string name="grid_size">Gittergröße</string>
+    <string name="width_string">Breite</string>
+    <string name="height_string">Höhe</string>
+    <string name="easy_difficulty">Leicht</string>
+    <string name="medium_difficulty">Mittel</string>
+    <string name="hard_difficulty">Schwer</string>
+    <string name="custom_difficulty">Angepasst</string>
+    <string name="start_button">Starte</string>
+    <string name="settings_button">Einstellungen</string>
+    <string name="scores_button">Rekorde</string>
+    <string name="min_string">Min</string>
+    <string name="max_string">Max</string>
+    <string name="block_size">Blockgröße</string>
+</resources>
