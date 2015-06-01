@@ -16,7 +16,7 @@ public class Piece {
     private Bitmap bitmap;
     private int x;
     private int y;
-    float rot;
+    private float rot;
 
     public Piece(int color, int pattern, Boolean[][] shape) {
         this.color = color;
@@ -30,7 +30,6 @@ public class Piece {
         android.util.Log.i("PieceXSize: ", ((Integer) xSize).toString());
         android.util.Log.i("PieceYSize: ", ((Integer) ySize).toString());
         android.util.Log.i("BlockLength: ", ((Float) blockLength).toString());
-        // Render bitmap here plz
         bitmap = Bitmap.createBitmap((int)(xSize*blockLength)+1, (int)(ySize*blockLength)+1, Bitmap.Config.ARGB_8888);
         int color2 = Color.argb(255, Color.red(color)/2, Color.green(color)/2,Color.blue(color)/2);
         Canvas temp = new Canvas(bitmap);

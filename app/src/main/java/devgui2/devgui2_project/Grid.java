@@ -5,7 +5,7 @@ package devgui2.devgui2_project;
  */
 public class Grid {
 
-    Boolean[][] gridSpaces;
-    Piece[] gridBlocks;
+    private Boolean[][] gridSpaces;
+    private Piece[] gridBlocks;
 
 }
