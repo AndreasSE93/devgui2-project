@@ -88,13 +88,14 @@ public class GridMaker {
 			int maxX = 0;
 			int maxY = 0;
 			for (int x = 0; x < gridWidth; x++) {
-				// FIXME: Gives wrong bounds
 				// Find piece bounds
 				for (int y = 0; y < gridHeight; y++) {
-					if (x < minX) minX = x;
-					if (x > maxX) maxX = x;
-					if (y < minY) minY = y;
-					if (y > maxY) maxY = y;
+					if (grid[x][y] == i) {
+						if (x < minX) minX = x;
+						if (x > maxX) maxX = x;
+						if (y < minY) minY = y;
+						if (y > maxY) maxY = y;
+					}
 				}
 			}
 			int width  = maxX - minX + 1;
