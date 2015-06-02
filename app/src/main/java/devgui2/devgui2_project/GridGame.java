@@ -10,6 +10,8 @@ import android.view.ViewTreeObserver;
 public class GridGame extends Activity {
 
 	Piece[] pieces;
+	int gridWidth, gridHeight;
+	boolean[][] grid;
 	Integer canvasSavedWidth, canvasSavedHeight;
 	boolean touchPointDown[] = new boolean[10];
 	float touchPointStartX[] = new float[10];
@@ -40,10 +42,14 @@ public class GridGame extends Activity {
 	    final int gridHeight   = getIntent().getIntExtra("gridHeight",   5);
 	    final int blockMinSize = getIntent().getIntExtra("blockMinSize", 3);
 	    final int blockMaxSize = getIntent().getIntExtra("blockMaxSize", 3);
+		this.gridWidth  = gridWidth;
+		this.gridHeight = gridHeight;
 	    if (savedInstanceState != null) {
 		    this.pieces = (Piece[])savedInstanceState.getSerializable("pieces");
+		    this.grid = (boolean[][])savedInstanceState.getSerializable("grid");
 	    } else {
 		    this.pieces = GridMaker.makeGrid(gridWidth, gridHeight, blockMinSize, blockMaxSize);
+		    this.grid = new boolean[gridWidth][gridWidth];
 	    }
 	    final Piece[] pieces = this.pieces;
 	    drawView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -123,7 +129,8 @@ public class GridGame extends Activity {
 	@Override
 	public void onSaveInstanceState(Bundle bundle) {
 		bundle.putSerializable("pieces", this.pieces);
-		bundle.putInt("canvasWidth", canvasSavedWidth);
+		bundle.putSerializable("grid",   this.pieces);
+		bundle.putInt("canvasWidth",  canvasSavedWidth);
 		bundle.putInt("canvasHeight", canvasSavedHeight);
 	}
 
@@ -172,8 +179,18 @@ public class GridGame extends Activity {
 					touchPointY[i] = event.getY(i);
 				}
 				if (touchPointDown[0] && touchMovingPiece != -1) {
-					pieces[touchMovingPiece].setX((int) (touchPieceStartX + x - touchPointStartX[point]));
-					pieces[touchMovingPiece].setY((int) (touchPieceStartY + y - touchPointStartY[point]));
+					float px = (touchPieceStartX + x - touchPointStartX[point]);
+					float py = (touchPieceStartY + y - touchPointStartY[point]);
+					int gridX = (int)((px - gridX1) / blockLength);
+					int gridY = (int)((py - gridY1) / blockLength);
+					float snappedX = gridX1 + gridX * blockLength;
+					float snappedY = gridY1 + gridY * blockLength;
+					if (Math.sqrt(Math.pow(snappedX, 2) + Math.pow(snappedY, 2)) < 5000.0) {
+						px = snappedX;
+						py = snappedY;
+					}
+					pieces[touchMovingPiece].setX((int) px);
+					pieces[touchMovingPiece].setY((int) py);
 				}
 				if (touchPointDown[1] && touchMovingPiece != -1) {
 					double rot = Math.atan2(touchPointX[0] - touchPointX[1], touchPointY[1] - touchPointY[0]);
