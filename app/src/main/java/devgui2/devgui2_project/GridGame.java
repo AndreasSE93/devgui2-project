@@ -150,7 +150,7 @@ public class GridGame extends Activity {
 	@Override
 	public void onSaveInstanceState(Bundle bundle) {
 		bundle.putSerializable("pieces", this.pieces);
-		bundle.putSerializable("grid",   this.grid);
+		bundle.putSerializable("grid", this.grid);
 		bundle.putInt("canvasWidth",  canvasSavedWidth);
 		bundle.putInt("canvasHeight", canvasSavedHeight);
 	}
@@ -189,6 +189,20 @@ public class GridGame extends Activity {
 							}
 						}
 					}
+					if (touchMovingPiece != -1 && pieces[touchMovingPiece].isSnapped()) {
+						pieces[touchMovingPiece].setSnapped(false);
+						pieces[touchMovingPiece].setSnapping(false);
+						int gridX = (int) ((pieces[touchMovingPiece].getX() - gridX1) / blockLength + 0.5f);
+						int gridY = (int) ((pieces[touchMovingPiece].getY() - gridY1) / blockLength + 0.5f);
+						boolean[][] shape = pieces[touchMovingPiece].getShape();
+						for (int bx = 0; bx < shape.length; bx++) {
+							for (int by = 0; by < shape[bx].length; by++) {
+								if (shape[bx][by]) {
+									grid[gridX + bx][gridY + by] = false;
+								}
+							}
+						}
+					}
 				} else if (point == 1 && touchMovingPiece !=-1) {
 					touchPieceStartRot = pieces[touchMovingPiece].getRot();
 					touchPointStartRot = Math.atan2(touchPointX[0] - x, y - touchPointY[0]);
@@ -205,19 +219,35 @@ public class GridGame extends Activity {
 					int gridX = (int)((px - gridX1) / blockLength + 0.5f);
 					int gridY = (int)((py - gridY1) / blockLength + 0.5f);
 
-					if      (gridX <  0                                                         ) gridX = 0;
-					else if (gridX >  gridWidth -  pieces[touchMovingPiece].getShape()   .length) gridX = gridWidth  - pieces[touchMovingPiece].getShape()   .length;
-					if      (gridY <  0                                                         ) gridY = 0;
-					else if (gridY >= gridHeight - pieces[touchMovingPiece].getShape()[0].length) gridY = gridHeight - pieces[touchMovingPiece].getShape()[0].length;
+					boolean[][] shape = pieces[touchMovingPiece].getShape();
+
+					if      (gridX <  0                           ) gridX = 0;
+					else if (gridX >  gridWidth -  shape   .length) gridX = gridWidth  - shape   .length;
+					if      (gridY <  0                           ) gridY = 0;
+					else if (gridY >= gridHeight - shape[0].length) gridY = gridHeight - shape[0].length;
 
 					float snappedX = gridX1 + gridX * blockLength;
 					float snappedY = gridY1 + gridY * blockLength;
 					drawView.pointX[0] = snappedX;
 					drawView.pointY[0] = snappedY;
 
+					pieces[touchMovingPiece].setSnapping(false);
 					if (Math.abs(Math.sqrt(Math.pow(snappedX - px, 2) + Math.pow(snappedY - py, 2))) < 75.0) {
-						px = snappedX;
-						py = snappedY;
+						boolean overlapping = false;
+						overlapFinder:
+						for (int bx = 0; bx < shape.length; bx++) {
+							for (int by = 0; by < shape[bx].length; by++) {
+								if (shape[bx][by] && grid[gridX + bx][gridY + by]) {
+									overlapping = true;
+									break overlapFinder;
+								}
+							}
+						}
+						if (!overlapping) {
+							pieces[touchMovingPiece].setSnapping(true);
+							px = snappedX;
+							py = snappedY;
+						}
 					}
 
 					pieces[touchMovingPiece].setX((int) px);
@@ -229,13 +259,24 @@ public class GridGame extends Activity {
 					pieces[touchMovingPiece].setRot((float)newRot);
 				}
 				break;
-			case MotionEvent.ACTION_POINTER_UP:
-				Log.d("GridGame", "Touch up: " + Integer.toString(point));
-				touchPointDown[point] = false;
-				break;
 			case MotionEvent.ACTION_UP:
 				for (int i = 0; i < touchPointDown.length; i++) {
 					touchPointDown[i] = false;
+				}
+			case MotionEvent.ACTION_POINTER_UP:
+				touchPointDown[point] = false;
+				if (!touchPointDown[0] && touchMovingPiece != -1 && pieces[touchMovingPiece].isSnapping()) {
+					pieces[touchMovingPiece].setSnapped(true);
+					int gridX = (int)((pieces[touchMovingPiece].getX() - gridX1) / blockLength + 0.5f);
+					int gridY = (int)((pieces[touchMovingPiece].getY() - gridY1) / blockLength + 0.5f);
+					boolean[][] shape = pieces[touchMovingPiece].getShape();
+					for (int bx = 0; bx < shape.length; bx++) {
+						for (int by = 0; by < shape[bx].length; by++) {
+							if (shape[bx][by]) {
+								grid[gridX + bx][gridY + by] = true;
+							}
+						}
+					}
 				}
 				break;
 		}
