@@ -74,7 +74,7 @@ public class GridGame extends Activity {
 	    } else {
 	    */
 		    this.pieces = GridMaker.makeGrid(gridWidth, gridHeight, blockMinSize, blockMaxSize);
-		    this.grid = new boolean[gridWidth][gridWidth];
+		    this.grid = new boolean[gridWidth][gridHeight];
 	    //}
 	    final Piece[] pieces = this.pieces;
 	    drawView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
