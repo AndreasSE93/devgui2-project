@@ -1,31 +1,17 @@
 package devgui2.devgui2_project;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.Display;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.graphics.Color;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewTreeObserver;
 
 
 public class GridGame extends Activity {
-
-	int canvasWidth;
-	int canvasHeight;
 	Piece[] pieces;
 	int gridWidth, gridHeight;
 	boolean[][] grid;
@@ -164,7 +150,7 @@ public class GridGame extends Activity {
 	@Override
 	public void onSaveInstanceState(Bundle bundle) {
 		bundle.putSerializable("pieces", this.pieces);
-		bundle.putSerializable("grid",   this.pieces);
+		bundle.putSerializable("grid",   this.grid);
 		bundle.putInt("canvasWidth",  canvasSavedWidth);
 		bundle.putInt("canvasHeight", canvasSavedHeight);
 	}
@@ -220,7 +206,7 @@ public class GridGame extends Activity {
 					int gridY = (int)((py - gridY1) / blockLength + 0.5f);
 
 					if      (gridX <  0                                                         ) gridX = 0;
-					else if (gridX > gridWidth - pieces[touchMovingPiece].getShape()     .length) gridX = gridWidth  - pieces[touchMovingPiece].getShape()   .length;
+					else if (gridX >  gridWidth -  pieces[touchMovingPiece].getShape()   .length) gridX = gridWidth  - pieces[touchMovingPiece].getShape()   .length;
 					if      (gridY <  0                                                         ) gridY = 0;
 					else if (gridY >= gridHeight - pieces[touchMovingPiece].getShape()[0].length) gridY = gridHeight - pieces[touchMovingPiece].getShape()[0].length;
 
