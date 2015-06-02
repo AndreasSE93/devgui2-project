@@ -177,7 +177,39 @@ public class GridGame extends Activity {
 					for (int i = pieces.length - 1; i >= 0; i--) {
 						float px = pieces[i].getX();
 						float py = pieces[i].getY();
+						/*if (i == 0) {
+							android.util.Log.i("Original x: ", ((Float)x).toString());
+							android.util.Log.i("Original y: ", ((Float)y).toString());
+						}*/
 						boolean[][] shape = pieces[i].getShape();
+						Bitmap bitmap = pieces[i].getBitmap();
+						float newpx = px + (bitmap.getWidth()/2);
+						float newpy = py + (bitmap.getHeight()/2);
+						float relx = newpx - touchPointX[point];
+						float rely = newpy - touchPointY[point];
+						double r = Math.sqrt(relx*relx + rely*rely);
+						double theta = Math.atan(((rely) / 2.0) / ((relx) / 2.0));
+						x = (float)(r*Math.cos(theta/*-Math.toRadians(pieces[i].getRot())*/));
+						y = (float)(r*Math.sin(theta/*-Math.toRadians(pieces[i].getRot())*/));
+						x = x+newpx;
+						y = y+newpy;
+						/*if(i == 0) {
+							android.util.Log.i("px: ", ((Float)px).toString());
+							android.util.Log.i("py: ", ((Float)py).toString());
+							android.util.Log.i("newpx: ", ((Float)newpx).toString());
+							android.util.Log.i("newpy: ", ((Float)newpy).toString());
+							android.util.Log.i("touchPointX[point]: ", ((Float)(touchPointX[point])).toString());
+							android.util.Log.i("touchPointY[point]: ", ((Float)(touchPointY[point])).toString());
+							android.util.Log.i("r: ", ((Double)r).toString());
+							android.util.Log.i("theta: ", ((Double)theta).toString());
+							android.util.Log.i("bloclLength: ", ((Float)blockLength).toString());
+							android.util.Log.i("relx: ", ((Float)relx).toString());
+							android.util.Log.i("rely: ", ((Float)rely).toString());
+							android.util.Log.i("x: ", ((Float)x).toString());
+							android.util.Log.i("y: ", ((Float)y).toString());
+							drawView.setCircle1(x, y);
+							drawView.setCircle2(newpx, newpy);
+						}*/
 						for (int bx = 0; bx < shape.length; bx++) {
 							for (int by = 0; by < shape[bx].length; by++) {
 								if (shape[bx][by] &&
@@ -208,7 +240,7 @@ public class GridGame extends Activity {
 					pieces[touchMovingPiece].setY((int) (touchPieceStartY + y - touchPointStartY[point]));
 				}
 				if (touchPointDown[1] && touchMovingPiece != -1) {
-					double rot = Math.atan2(touchPointX[0] - touchPointX[1], touchPointY[1] - touchPointY[0]);
+					double rot = (Math.atan2(touchPointX[0] - touchPointX[1], touchPointY[1] - touchPointY[0]));
 					double newRot = Math.toDegrees(touchPieceStartRot + rot - touchPointStartRot) % 360.0;
 					pieces[touchMovingPiece].setRot((float)newRot);
 				}
@@ -216,6 +248,7 @@ public class GridGame extends Activity {
 			case MotionEvent.ACTION_POINTER_UP:
 				Log.d("GridGame", "Touch up: " + Integer.toString(point));
 				touchPointDown[point] = false;
+				//touchPieceStartRot = pieces[touchMovingPiece].getRot();
 				break;
 			case MotionEvent.ACTION_UP:
 				for (int i = 0; i < touchPointDown.length; i++) {
