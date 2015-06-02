@@ -18,4 +18,8 @@
     <string name="min_string">Min</string>
     <string name="max_string">Max</string>
     <string name="block_size">Block size</string>
+    <string name="title_activity_win_screen">Win screen</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>

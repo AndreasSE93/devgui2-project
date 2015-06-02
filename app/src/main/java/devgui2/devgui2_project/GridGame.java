@@ -1,6 +1,7 @@
 package devgui2.devgui2_project;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
@@ -15,6 +16,9 @@ public class GridGame extends Activity {
 	Piece[] pieces;
 	int gridWidth, gridHeight;
 	boolean[][] grid;
+	long startTime;
+	int moves = 0;
+
 	Integer canvasSavedWidth, canvasSavedHeight;
 	boolean touchPointDown[] = new boolean[10];
 	float touchPointStartX[] = new float[10];
@@ -149,6 +153,8 @@ public class GridGame extends Activity {
 			    }
 			    drawView.init(gridX1, gridY1, gridX2, gridY2, gridWidth, gridHeight, blockLength);
 			    drawView.setPieces(pieces);
+
+			    startTime = System.currentTimeMillis();
                 
 		    }
 
@@ -287,10 +293,28 @@ public class GridGame extends Activity {
 							}
 						}
 					}
+					moves++;
+					checkWin();
 				}
 				break;
 		}
 		return false;
+	}
+
+	private boolean checkWin() {
+		for (int x = 0; x < grid.length; x++) {
+			for (int y = 0; y < grid[x].length; y++) {
+				if (!grid[x][y]) {
+					return false;
+				}
+			}
+		}
+		Intent intent = new Intent(this, WinScreen.class);
+		intent.putExtra("pieceCount", pieces.length);
+		intent.putExtra("moveCount",  moves);
+		intent.putExtra("solveTime",  System.currentTimeMillis() - startTime);
+		startActivity(intent);
+		return true;
 	}
 
 	@Override
