@@ -62,7 +62,8 @@
             android:textSize="40sp"
             android:layout_above="@+id/hardButton"
             android:layout_centerHorizontal="true"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:onClick="play"/>
 
         <Space
             android:layout_width="20px"
@@ -79,7 +80,8 @@
             android:textSize="40sp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:onClick="play"/>
 
         <Space
             android:layout_width="20px"

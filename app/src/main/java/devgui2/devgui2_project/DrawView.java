@@ -9,17 +9,21 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 public class DrawView extends View
 {
     Bundle bundle;
     Paint paint = new Paint();
-    int gridWidth;
-    int gridHeight;
+    int gridWidth, gridHeight;
+	float gridX1, gridY1, gridX2, gridY2; // Grid coordinates
+	float blockLength;
     Piece[] pieces;
-    float blockLength;
-    boolean init;
+	float pointX[] = new float[100];
+	float pointY[] = new float[100];
+	int pointColor[] = new int[100];
 
     public DrawView(Context context, Bundle bundle)
     {
@@ -31,98 +35,40 @@ public class DrawView extends View
     @Override
     public void onDraw(Canvas canvas)
     {
-        int drawWidth = this.getWidth();
-        int drawHeight = this.getHeight();
-        gridWidth = bundle.getInt("gridWidth");
-        gridHeight = bundle.getInt("gridHeight");
-        float aspectRatio = (float)drawWidth/(float)drawHeight;
-        float xMargin;
-        float yMargin;
-        if (aspectRatio > 0.5 && aspectRatio < 2.0) {
-            if (aspectRatio < 1) {
-                xMargin = ((float)drawWidth/(float)4 * (aspectRatio));
-                yMargin = ((float)drawHeight - ((float)drawWidth - xMargin*2))/(float)2;
-            } else if(aspectRatio > 1) {
-                float aspect = 1/aspectRatio;
-                yMargin = ((float)drawHeight/(float)4 * (aspect));
-                xMargin = ((float)drawWidth - ((float)drawHeight - yMargin*2))/(float)2;
-            } else {
-                xMargin = (float)drawHeight - ((float)drawHeight/(float)4);
-                yMargin = xMargin;
-            }
-        } else if (aspectRatio <= 0.5) {
-            xMargin = 0;
-            yMargin = (drawHeight - drawWidth) >> 1;
-        } else {
-            xMargin = (drawWidth - drawHeight) >> 1;;
-            yMargin = 0;
-        }
-
-        float gridRatio = (float)gridWidth/(float)gridHeight;
-        float gridAreaWidth = (float)drawWidth - 2*xMargin;
-        float gridAreaHeight = (float)drawHeight - 2*yMargin;
-        float gridX;
-        float gridY;
-        float gridX2;
-        float gridY2;
-        if (gridRatio > 1) {
-            //Wide
-            blockLength = gridAreaWidth/(float)gridWidth;
-            gridX = xMargin;
-            gridY = ((float)drawHeight/(float)2)-(blockLength*gridHeight/(float)2);
-            gridX2 = drawWidth - xMargin;
-            gridY2 = gridY + blockLength * gridHeight;
-        } else if (gridRatio < 1) {
-            //Tall
-            blockLength = gridAreaHeight/(float)gridHeight;
-            gridX = ((float)drawWidth/(float)2)-(blockLength*gridWidth/(float)2);
-            gridY = yMargin;
-            gridX2 = gridX + blockLength * gridWidth;
-            gridY2 = drawHeight - yMargin;
-        } else {
-            blockLength = gridAreaWidth/(float)gridWidth;
-            gridX = xMargin;
-            gridY = yMargin;
-            gridX2 = drawWidth - xMargin;
-            gridY2 = drawHeight - yMargin;
-        }
-
         for (int i = 0; i <= gridWidth; i++) { //Draw longitudinal lines
-            float offset = i*blockLength;
-            canvas.drawLine(gridX+offset, gridY, gridX+offset, gridY2, paint);
+            float offset = (float)(i) * blockLength;
+            canvas.drawLine(gridX1 + offset, gridY1, gridX1 + offset, gridY2, paint);
         }
 
         for (int i = 0; i <= gridHeight; i++) { //Draw latitudinal lines
-            float offset = i*blockLength;
-            canvas.drawLine(gridX, gridY+offset, gridX2, gridY+offset, paint);
-        }
-
-        if (init == false) {
-            for (Piece piece : pieces) {
-                android.util.Log.i("BlockLength: ", ((Float)blockLength).toString());
-                piece.initBitmap(blockLength);
-            }
-            init = true;
+            float offset = (float)(i) * blockLength;
+            canvas.drawLine(gridX1, gridY1 + offset, gridX2, gridY1 + offset, paint);
         }
 
         for (Piece piece : pieces) {
-            float rot = piece.getRot();
-            int x = piece.getX();
-            int y = piece.getY();
-            Bitmap bitmap = piece.getBitmap();
-            canvas.save();
-            canvas.rotate(rot, x + (bitmap.getWidth() / 2), y + (bitmap.getHeight() / 2));
-            canvas.drawBitmap(bitmap, x, y, null);
-            canvas.restore();
-            android.util.Log.i("X: ", ((Integer) x).toString());
-            android.util.Log.i("Y: ", ((Integer) y).toString());
-            android.util.Log.i("Rot: ", ((Float) rot).toString());
-            android.util.Log.i("BitmapW: ", ((Integer) bitmap.getWidth()).toString());
-            android.util.Log.i("BitmapH: ", ((Integer) bitmap.getHeight()).toString());
-            //int[] pixels = new int[100];
-            //bitmap.getPixels(pixels, 0, bitmap.getWidth(), 0, 0, 9, 9);
-            //android.util.Log.i("Bitmap: ", pixels.toString());
+	        float rot = piece.getRot();
+	        int x = piece.getX();
+	        int y = piece.getY();
+	        Bitmap bitmap = piece.getBitmap();
+	        canvas.save();
+	        canvas.rotate(rot, x + (bitmap.getWidth() / 2), y + (bitmap.getHeight() / 2));
+	        canvas.drawBitmap(bitmap, x, y, null);
+	        canvas.restore();
+	        //android.util.Log.i("X: ", ((Integer) x).toString());
+	        //android.util.Log.i("Y: ", ((Integer) y).toString());
+	        //android.util.Log.i("Rot: ", ((Float) rot).toString());
+	        //android.util.Log.i("BitmapW: ", ((Integer) bitmap.getWidth()).toString());
+	        //android.util.Log.i("BitmapH: ", ((Integer) bitmap.getHeight()).toString());
+	        //int[] pixels = new int[100];
+	        //bitmap.getPixels(pixels, 0, bitmap.getWidth(), 0, 0, 9, 9);
+	        //android.util.Log.i("Bitmap: ", pixels.toString());
         }
+
+	    Paint paint = new Paint();
+	    for (int i = 0; i < pointX.length; i++) {
+		    paint.setColor(pointColor[i]);
+		    canvas.drawCircle(pointX[i], pointY[i], 10.0f, paint);
+	    }
 
         //canvas.drawLine(startX, startY, endX, endY, paint);
         //canvas.drawRect(xMargin, yMargin, drawWidth-xMargin, drawHeight-yMargin, paint);
@@ -133,11 +79,19 @@ public class DrawView extends View
         android.util.Log.i("xMargin", ((Float)xMargin).toString());
         android.util.Log.i("yMargin", ((Float)yMargin).toString());
         */
+
+	    this.invalidate();
     }
 
-    public float getBlockLength() {
-        return blockLength;
-    }
+	public void init(float gridX1, float gridY1, float gridX2, float gridY2, int gridWidth, int gridHeight, float blockLength) {
+		this.gridX1 = gridX1;
+		this.gridY1 = gridY1;
+		this.gridX2 = gridX2;
+		this.gridY2 = gridY2;
+		this.gridWidth  = gridWidth;
+		this.gridHeight = gridHeight;
+		this.blockLength = blockLength;
+	};
 
     public void setPieces(Piece[] pieces) {
         this.pieces = pieces;
