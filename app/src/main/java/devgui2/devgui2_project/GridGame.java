@@ -1,6 +1,20 @@
 package devgui2.devgui2_project;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.MediaPlayer;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.Display;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +23,8 @@ import android.view.ViewTreeObserver;
 
 public class GridGame extends Activity {
 
+	int canvasWidth;
+	int canvasHeight;
 	Piece[] pieces;
 	int gridWidth, gridHeight;
 	boolean[][] grid;
@@ -26,9 +42,25 @@ public class GridGame extends Activity {
 	float gridX1, gridY1, gridX2, gridY2, blockLength;
 	DrawView drawView;
 
+	boolean sfx;
+	boolean bgm;
+	MediaPlayer musicPlayer;
+	MediaPlayer winPlayer;
+
 	@Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		sfx = sharedPrefs.getBoolean("pref_sound_fx", true);
+		bgm = sharedPrefs.getBoolean("pref_sound_music", true);
+		if (bgm == true) {
+			musicPlayer = MediaPlayer.create(this, R.raw.bgmloop);
+			musicPlayer.setLooping(true);
+			musicPlayer.start();
+		}
+		if (sfx == true) {
+			winPlayer = MediaPlayer.create(this, R.raw.sfxwin);
+		}
         setContentView(R.layout.activity_gridgame);
         final DrawView drawView = new DrawView(this, getIntent().getExtras());
 		this.drawView = drawView;
@@ -213,5 +245,29 @@ public class GridGame extends Activity {
 			drawView.pointY[i] = (int)touchPointY[i];
 		}
 		return false;
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (bgm == true) {
+			musicPlayer.pause();
+		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (bgm == true) {
+			musicPlayer.start();
+		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onStop();
+		if (bgm == true) {
+			musicPlayer.stop();
+		}
 	}
 }

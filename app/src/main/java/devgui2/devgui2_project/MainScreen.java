@@ -2,6 +2,7 @@ package devgui2.devgui2_project;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,7 +19,10 @@ public class MainScreen extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_screen);
-
+		// Remove below later
+		MediaPlayer winPlayer = MediaPlayer.create(this, R.raw.sfxwin);
+		winPlayer.start();
+		// Remove above later
 	}
 
 	public void openSettings(View view) {
