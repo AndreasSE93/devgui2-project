@@ -216,14 +216,24 @@ public class GridGame extends Activity {
 				if (touchPointDown[0] && touchMovingPiece != -1) {
 					float px = (touchPieceStartX + x - touchPointStartX[point]);
 					float py = (touchPieceStartY + y - touchPointStartY[point]);
-					int gridX = (int)((px - gridX1) / blockLength);
-					int gridY = (int)((py - gridY1) / blockLength);
+					int gridX = (int)((px - gridX1) / blockLength + 0.5f);
+					int gridY = (int)((py - gridY1) / blockLength + 0.5f);
+
+					if      (gridX <  0                                                         ) gridX = 0;
+					else if (gridX > gridWidth - pieces[touchMovingPiece].getShape()     .length) gridX = gridWidth  - pieces[touchMovingPiece].getShape()   .length;
+					if      (gridY <  0                                                         ) gridY = 0;
+					else if (gridY >= gridHeight - pieces[touchMovingPiece].getShape()[0].length) gridY = gridHeight - pieces[touchMovingPiece].getShape()[0].length;
+
 					float snappedX = gridX1 + gridX * blockLength;
 					float snappedY = gridY1 + gridY * blockLength;
-					if (Math.sqrt(Math.pow(snappedX, 2) + Math.pow(snappedY, 2)) < 5000.0) {
+					drawView.pointX[0] = snappedX;
+					drawView.pointY[0] = snappedY;
+
+					if (Math.abs(Math.sqrt(Math.pow(snappedX - px, 2) + Math.pow(snappedY - py, 2))) < 75.0) {
 						px = snappedX;
 						py = snappedY;
 					}
+
 					pieces[touchMovingPiece].setX((int) px);
 					pieces[touchMovingPiece].setY((int) py);
 				}
@@ -242,10 +252,6 @@ public class GridGame extends Activity {
 					touchPointDown[i] = false;
 				}
 				break;
-		}
-		for (int i = 0; i < event.getPointerCount(); i++) {
-			drawView.pointX[i] = (int)touchPointX[i];
-			drawView.pointY[i] = (int)touchPointY[i];
 		}
 		return false;
 	}
