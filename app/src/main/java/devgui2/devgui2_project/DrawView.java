@@ -21,9 +21,12 @@ public class DrawView extends View
 	float gridX1, gridY1, gridX2, gridY2; // Grid coordinates
 	float blockLength;
     Piece[] pieces;
+
+	/*
 	float pointX[] = new float[100];
 	float pointY[] = new float[100];
 	int pointColor[] = new int[100];
+	*/
 
     public DrawView(Context context, Bundle bundle)
     {
@@ -64,11 +67,13 @@ public class DrawView extends View
 	        //android.util.Log.i("Bitmap: ", pixels.toString());
         }
 
+	    /*
 	    Paint paint = new Paint();
 	    for (int i = 0; i < pointX.length; i++) {
 		    paint.setColor(pointColor[i]);
 		    canvas.drawCircle(pointX[i], pointY[i], 10.0f, paint);
 	    }
+	    */
 
         //canvas.drawLine(startX, startY, endX, endY, paint);
         //canvas.drawRect(xMargin, yMargin, drawWidth-xMargin, drawHeight-yMargin, paint);

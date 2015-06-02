@@ -51,10 +51,14 @@ public class GridGame extends Activity {
         setContentView(R.layout.activity_gridgame);
         final DrawView drawView = new DrawView(this, getIntent().getExtras());
 		this.drawView = drawView;
+
+		/*
 		drawView.pointColor[0] = 0xDDFFFFFF;
 		drawView.pointColor[1] = 0xDDFF0000;
 		drawView.pointColor[2] = 0xDD00FF00;
 		drawView.pointColor[3] = 0xDD0000FF;
+		*/
+
         drawView.setBackgroundColor(Color.BLACK);
         setContentView(drawView);
 	    final int gridWidth    = getIntent().getIntExtra("gridWidth",    5);
@@ -228,8 +232,8 @@ public class GridGame extends Activity {
 
 					float snappedX = gridX1 + gridX * blockLength;
 					float snappedY = gridY1 + gridY * blockLength;
-					drawView.pointX[0] = snappedX;
-					drawView.pointY[0] = snappedY;
+					//drawView.pointX[0] = snappedX;
+					//drawView.pointY[0] = snappedY;
 
 					pieces[touchMovingPiece].setSnapping(false);
 					if (Math.abs(Math.sqrt(Math.pow(snappedX - px, 2) + Math.pow(snappedY - py, 2))) < 75.0) {
