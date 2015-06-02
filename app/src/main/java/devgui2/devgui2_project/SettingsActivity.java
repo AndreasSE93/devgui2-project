@@ -69,6 +69,7 @@ public class SettingsActivity extends PreferenceActivity {
 		fakeHeader.setTitle(R.string.pref_header_sound);
 		getPreferenceScreen().addPreference(fakeHeader);
 		addPreferencesFromResource(R.xml.pref_sound);
+		getPreferenceScreen().getPreference(0);
 
 		/*
 		// Bind the summaries of EditText/List/Dialog/Ringtone preferences to
@@ -126,9 +127,13 @@ public class SettingsActivity extends PreferenceActivity {
 	 * A preference value change listener that updates the preference's summary
 	 * to reflect its new value.
 	 */
-	private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
+	private static Preference.OnPreferenceClickListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceClickListener() {
 		@Override
-		public boolean onPreferenceChange(Preference preference, Object value) {
+		public boolean onPreferenceClick(Preference preference) {
+			android.util.Log.i("preference.getTitle():", preference.getTitle().toString());
+			if(preference.getTitle() == "") {
+
+			}
 			/*
 			String stringValue = value.toString();
 
@@ -187,14 +192,15 @@ public class SettingsActivity extends PreferenceActivity {
 	 */
 	private static void bindPreferenceSummaryToValue(Preference preference) {
 		// Set the listener to watch for value changes.
-		preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
+		preference.setOnPreferenceClickListener(sBindPreferenceSummaryToValueListener);
 
 		// Trigger the listener immediately with the preference's
 		// current value.
-		sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
+		/* sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
 				PreferenceManager
 						.getDefaultSharedPreferences(preference.getContext())
 						.getString(preference.getKey(), ""));
+	    */
 	}
 
 	/**
