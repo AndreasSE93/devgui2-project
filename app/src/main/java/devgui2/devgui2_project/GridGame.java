@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewTreeObserver;
 
+
 public class GridGame extends Activity {
 
 	int canvasWidth;
@@ -154,7 +155,9 @@ public class GridGame extends Activity {
 			    }
 			    drawView.init(gridX1, gridY1, gridX2, gridY2, gridWidth, gridHeight, blockLength);
 			    drawView.setPieces(pieces);
+                
 		    }
+
 	    });
     }
 
