@@ -3,14 +3,24 @@ package devgui2.devgui2_project;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewTreeObserver;
 
-public class GridGame extends Activity {
+
+public class GridGame extends Activity  {
+	int displayWidth;
+	int displayHeight;
+    float x,y;
 
 	Piece[] pieces;
 	Integer canvasSavedWidth, canvasSavedHeight;
 
-    @Override
+
+
+
+	@Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gridgame);
@@ -98,7 +108,9 @@ public class GridGame extends Activity {
 			    }
 			    drawView.init(gridX1, gridY1, gridX2, gridY2, gridWidth, gridHeight, blockLength);
 			    drawView.setPieces(pieces);
+                
 		    }
+
 	    });
     }
 
