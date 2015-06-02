@@ -4,28 +4,21 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.Display;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.graphics.Color;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewTreeObserver;
 
 public class GridGame extends Activity {
-
-	int canvasWidth;
-	int canvasHeight;
 	Piece[] pieces;
+	int gridWidth, gridHeight;
+	boolean[][] grid;
+	long startTime;
+	int moves = 0;
+
 	Integer canvasSavedWidth, canvasSavedHeight;
 	boolean touchPointDown[] = new boolean[10];
 	float touchPointStartX[] = new float[10];
@@ -62,21 +55,31 @@ public class GridGame extends Activity {
         setContentView(R.layout.activity_gridgame);
         final DrawView drawView = new DrawView(this, getIntent().getExtras());
 		this.drawView = drawView;
+
+		/*
 		drawView.pointColor[0] = 0xDDFFFFFF;
 		drawView.pointColor[1] = 0xDDFF0000;
 		drawView.pointColor[2] = 0xDD00FF00;
 		drawView.pointColor[3] = 0xDD0000FF;
+		*/
+
         drawView.setBackgroundColor(Color.BLACK);
         setContentView(drawView);
 	    final int gridWidth    = getIntent().getIntExtra("gridWidth",    5);
 	    final int gridHeight   = getIntent().getIntExtra("gridHeight",   5);
 	    final int blockMinSize = getIntent().getIntExtra("blockMinSize", 3);
 	    final int blockMaxSize = getIntent().getIntExtra("blockMaxSize", 3);
+		this.gridWidth  = gridWidth;
+		this.gridHeight = gridHeight;
+		/*
 	    if (savedInstanceState != null) {
 		    this.pieces = (Piece[])savedInstanceState.getSerializable("pieces");
+		    this.grid = (boolean[][])savedInstanceState.getSerializable("grid");
 	    } else {
+	    */
 		    this.pieces = GridMaker.makeGrid(gridWidth, gridHeight, blockMinSize, blockMaxSize);
-	    }
+		    this.grid = new boolean[gridWidth][gridHeight];
+	    //}
 	    final Piece[] pieces = this.pieces;
 	    drawView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 		    @Override
@@ -136,27 +139,36 @@ public class GridGame extends Activity {
 
 			    for (int i = 0; i < pieces.length; i++) {
 				    pieces[i].initBitmap(blockLength);
+				    /*
 				    if (savedInstanceState != null) {
 					    final int oldWidth  = savedInstanceState.getInt("canvasWidth");
 					    final int oldHeight = savedInstanceState.getInt("canvasHeight");
 					    pieces[i].setX((int)(((float)(pieces[i].getX())) / oldWidth  * canvasWidth));
 					    pieces[i].setY((int)(((float)(pieces[i].getY())) / oldHeight * canvasHeight));
 				    } else {
+				    */
 					    pieces[i].setX((int) (Math.random() * (canvasWidth - pieces[i].getBitmap().getWidth())));
 					    pieces[i].setY((int) (Math.random() * (canvasHeight - pieces[i].getBitmap().getHeight())));
-				    }
+				    //}
 			    }
 			    drawView.init(gridX1, gridY1, gridX2, gridY2, gridWidth, gridHeight, blockLength);
 			    drawView.setPieces(pieces);
+
+			    startTime = System.currentTimeMillis();
+                
 		    }
+
 	    });
     }
 
 	@Override
 	public void onSaveInstanceState(Bundle bundle) {
+		/*
 		bundle.putSerializable("pieces", this.pieces);
+		bundle.putSerializable("grid", this.grid);
 		bundle.putInt("canvasWidth", canvasSavedWidth);
 		bundle.putInt("canvasHeight", canvasSavedHeight);
+		*/
 	}
 
 	@Override
@@ -225,6 +237,20 @@ public class GridGame extends Activity {
 							}
 						}
 					}
+					if (touchMovingPiece != -1 && pieces[touchMovingPiece].isSnapped()) {
+						pieces[touchMovingPiece].setSnapped(false);
+						pieces[touchMovingPiece].setSnapping(false);
+						int gridX = (int) ((pieces[touchMovingPiece].getX() - gridX1) / blockLength + 0.5f);
+						int gridY = (int) ((pieces[touchMovingPiece].getY() - gridY1) / blockLength + 0.5f);
+						boolean[][] shape = pieces[touchMovingPiece].getShape();
+						for (int bx = 0; bx < shape.length; bx++) {
+							for (int by = 0; by < shape[bx].length; by++) {
+								if (shape[bx][by]) {
+									grid[gridX + bx][gridY + by] = false;
+								}
+							}
+						}
+					}
 				} else if (point == 1 && touchMovingPiece !=-1) {
 					touchPieceStartRot = pieces[touchMovingPiece].getRot();
 					touchPointStartRot = Math.atan2(touchPointX[0] - x, y - touchPointY[0]);
@@ -236,8 +262,44 @@ public class GridGame extends Activity {
 					touchPointY[i] = event.getY(i);
 				}
 				if (touchPointDown[0] && touchMovingPiece != -1) {
-					pieces[touchMovingPiece].setX((int) (touchPieceStartX + x - touchPointStartX[point]));
-					pieces[touchMovingPiece].setY((int) (touchPieceStartY + y - touchPointStartY[point]));
+					float px = (touchPieceStartX + x - touchPointStartX[point]);
+					float py = (touchPieceStartY + y - touchPointStartY[point]);
+					int gridX = (int)((px - gridX1) / blockLength + 0.5f);
+					int gridY = (int)((py - gridY1) / blockLength + 0.5f);
+
+					boolean[][] shape = pieces[touchMovingPiece].getShape();
+
+					if      (gridX <  0                           ) gridX = 0;
+					else if (gridX >  gridWidth -  shape   .length) gridX = gridWidth  - shape   .length;
+					if      (gridY <  0                           ) gridY = 0;
+					else if (gridY >= gridHeight - shape[0].length) gridY = gridHeight - shape[0].length;
+
+					float snappedX = gridX1 + gridX * blockLength;
+					float snappedY = gridY1 + gridY * blockLength;
+					//drawView.pointX[0] = snappedX;
+					//drawView.pointY[0] = snappedY;
+
+					pieces[touchMovingPiece].setSnapping(false);
+					if (Math.abs(Math.sqrt(Math.pow(snappedX - px, 2) + Math.pow(snappedY - py, 2))) < 75.0) {
+						boolean overlapping = false;
+						overlapFinder:
+						for (int bx = 0; bx < shape.length; bx++) {
+							for (int by = 0; by < shape[bx].length; by++) {
+								if (shape[bx][by] && grid[gridX + bx][gridY + by]) {
+									overlapping = true;
+									break overlapFinder;
+								}
+							}
+						}
+						if (!overlapping) {
+							pieces[touchMovingPiece].setSnapping(true);
+							px = snappedX;
+							py = snappedY;
+						}
+					}
+
+					pieces[touchMovingPiece].setX((int) px);
+					pieces[touchMovingPiece].setY((int) py);
 				}
 				if (touchPointDown[1] && touchMovingPiece != -1) {
 					double rot = (Math.atan2(touchPointX[0] - touchPointX[1], touchPointY[1] - touchPointY[0]));
@@ -245,22 +307,47 @@ public class GridGame extends Activity {
 					pieces[touchMovingPiece].setRot((float)newRot);
 				}
 				break;
-			case MotionEvent.ACTION_POINTER_UP:
-				Log.d("GridGame", "Touch up: " + Integer.toString(point));
-				touchPointDown[point] = false;
-				//touchPieceStartRot = pieces[touchMovingPiece].getRot();
-				break;
+
 			case MotionEvent.ACTION_UP:
 				for (int i = 0; i < touchPointDown.length; i++) {
 					touchPointDown[i] = false;
 				}
+			case MotionEvent.ACTION_POINTER_UP:
+				touchPointDown[point] = false;
+				if (!touchPointDown[0] && touchMovingPiece != -1 && pieces[touchMovingPiece].isSnapping()) {
+					pieces[touchMovingPiece].setSnapped(true);
+					int gridX = (int)((pieces[touchMovingPiece].getX() - gridX1) / blockLength + 0.5f);
+					int gridY = (int)((pieces[touchMovingPiece].getY() - gridY1) / blockLength + 0.5f);
+					boolean[][] shape = pieces[touchMovingPiece].getShape();
+					for (int bx = 0; bx < shape.length; bx++) {
+						for (int by = 0; by < shape[bx].length; by++) {
+							if (shape[bx][by]) {
+								grid[gridX + bx][gridY + by] = true;
+							}
+						}
+					}
+					moves++;
+					checkWin();
+				}
 				break;
 		}
-		for (int i = 0; i < event.getPointerCount(); i++) {
-			drawView.pointX[i] = (int)touchPointX[i];
-			drawView.pointY[i] = (int)touchPointY[i];
-		}
 		return false;
+	}
+
+	private boolean checkWin() {
+		for (int x = 0; x < grid.length; x++) {
+			for (int y = 0; y < grid[x].length; y++) {
+				if (!grid[x][y]) {
+					return false;
+				}
+			}
+		}
+		Intent intent = new Intent(this, WinScreen.class);
+		intent.putExtra("pieceCount", pieces.length);
+		intent.putExtra("moveCount",  moves);
+		intent.putExtra("solveTime",  System.currentTimeMillis() - startTime);
+		startActivity(intent);
+		return true;
 	}
 
 	@Override

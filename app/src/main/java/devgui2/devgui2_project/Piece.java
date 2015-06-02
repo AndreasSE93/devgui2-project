@@ -17,6 +17,8 @@ public class Piece {
     private int x;
     private int y;
     private float rot;
+	private boolean snapped  = false;
+	private boolean snapping = false;
 
     public Piece(int color, int pattern, boolean[][] shape) {
         this.color = color;
@@ -84,7 +86,23 @@ public class Piece {
         this.y = y;
     }
 
-    public void setRot(float rot) {
-        this.rot = rot;
-    }
+	public void setRot(float rot) {
+		this.rot = rot;
+	}
+
+	public void setSnapped(boolean snapped) {
+		this.snapped = snapped;
+	}
+
+	public boolean isSnapped() {
+		return this.snapped;
+	}
+
+	public void setSnapping(boolean snapping) {
+		this.snapping = snapping;
+	}
+
+	public boolean isSnapping() {
+		return this.snapping;
+	}
 }

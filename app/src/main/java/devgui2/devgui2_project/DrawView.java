@@ -21,13 +21,10 @@ public class DrawView extends View
 	float gridX1, gridY1, gridX2, gridY2; // Grid coordinates
 	float blockLength;
     Piece[] pieces;
+
 	float pointX[] = new float[100];
 	float pointY[] = new float[100];
 	int pointColor[] = new int[100];
-    float c1x = 0;
-    float c1y = 0;
-    float c2x = 0;
-    float c2y = 0;
 
     public DrawView(Context context, Bundle bundle)
     {
@@ -58,7 +55,7 @@ public class DrawView extends View
 	        canvas.rotate(rot, x + (bitmap.getWidth() / 2), y + (bitmap.getHeight() / 2));
 	        canvas.drawBitmap(bitmap, x, y, null);
 	        canvas.restore();
-            canvas.drawCircle(x, y, 5.0f, paint);
+            //canvas.drawCircle(x, y, 5.0f, paint);
 	        //android.util.Log.i("X: ", ((Integer) x).toString());
 	        //android.util.Log.i("Y: ", ((Integer) y).toString());
 	        //android.util.Log.i("Rot: ", ((Float) rot).toString());
@@ -69,11 +66,13 @@ public class DrawView extends View
 	        //android.util.Log.i("Bitmap: ", pixels.toString());
         }
 
+	    /*
 	    Paint paint = new Paint();
 	    for (int i = 0; i < pointX.length; i++) {
 		    paint.setColor(pointColor[i]);
 		    //canvas.drawCircle(pointX[i], pointY[i], 10.0f, paint);
 	    }
+	    */
 
         //canvas.drawLine(startX, startY, endX, endY, paint);
         //canvas.drawRect(xMargin, yMargin, drawWidth-xMargin, drawHeight-yMargin, paint);
@@ -84,10 +83,6 @@ public class DrawView extends View
         android.util.Log.i("xMargin", ((Float)xMargin).toString());
         android.util.Log.i("yMargin", ((Float)yMargin).toString());
         */
-        paint.setColor(Color.WHITE);
-        canvas.drawCircle(c1x, c1y, 10.0f, paint);
-        paint.setColor(Color.YELLOW);
-        canvas.drawCircle(c2x, c2y, 10.0f, paint);
 
 	    this.invalidate();
     }
@@ -101,18 +96,6 @@ public class DrawView extends View
 		this.gridHeight = gridHeight;
 		this.blockLength = blockLength;
 	};
-
-    public void setCircle1(float x, float y) {
-        paint.setColor(Color.WHITE);
-        c1x = x;
-        c1y = y;
-    }
-
-    public void setCircle2(float x, float y) {
-        paint.setColor(Color.YELLOW);
-        c2x = x;
-        c2y = y;
-    }
 
     public void setPieces(Piece[] pieces) {
         this.pieces = pieces;
