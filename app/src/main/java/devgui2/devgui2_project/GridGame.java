@@ -67,13 +67,15 @@ public class GridGame extends Activity {
 	    final int blockMaxSize = getIntent().getIntExtra("blockMaxSize", 3);
 		this.gridWidth  = gridWidth;
 		this.gridHeight = gridHeight;
+		/*
 	    if (savedInstanceState != null) {
 		    this.pieces = (Piece[])savedInstanceState.getSerializable("pieces");
 		    this.grid = (boolean[][])savedInstanceState.getSerializable("grid");
 	    } else {
+	    */
 		    this.pieces = GridMaker.makeGrid(gridWidth, gridHeight, blockMinSize, blockMaxSize);
 		    this.grid = new boolean[gridWidth][gridWidth];
-	    }
+	    //}
 	    final Piece[] pieces = this.pieces;
 	    drawView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 		    @Override
@@ -133,15 +135,17 @@ public class GridGame extends Activity {
 
 			    for (int i = 0; i < pieces.length; i++) {
 				    pieces[i].initBitmap(blockLength);
+				    /*
 				    if (savedInstanceState != null) {
 					    final int oldWidth  = savedInstanceState.getInt("canvasWidth");
 					    final int oldHeight = savedInstanceState.getInt("canvasHeight");
 					    pieces[i].setX((int)(((float)(pieces[i].getX())) / oldWidth  * canvasWidth));
 					    pieces[i].setY((int)(((float)(pieces[i].getY())) / oldHeight * canvasHeight));
 				    } else {
+				    */
 					    pieces[i].setX((int) (Math.random() * (canvasWidth - pieces[i].getBitmap().getWidth())));
 					    pieces[i].setY((int) (Math.random() * (canvasHeight - pieces[i].getBitmap().getHeight())));
-				    }
+				    //}
 			    }
 			    drawView.init(gridX1, gridY1, gridX2, gridY2, gridWidth, gridHeight, blockLength);
 			    drawView.setPieces(pieces);
@@ -153,10 +157,12 @@ public class GridGame extends Activity {
 
 	@Override
 	public void onSaveInstanceState(Bundle bundle) {
+		/*
 		bundle.putSerializable("pieces", this.pieces);
 		bundle.putSerializable("grid", this.grid);
-		bundle.putInt("canvasWidth",  canvasSavedWidth);
+		bundle.putInt("canvasWidth", canvasSavedWidth);
 		bundle.putInt("canvasHeight", canvasSavedHeight);
+		*/
 	}
 
 	@Override
