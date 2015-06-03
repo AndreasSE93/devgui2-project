@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DevGui2 project</string>
+    <string name="app_name">Blocks</string>
     <string name="title_activity_difficulty_select">Difficulty select</string>
     <string name="title_activity_custom_difficulty">Custom difficulty</string>
     <string name="title_activity_gridgame">Grid game</string>

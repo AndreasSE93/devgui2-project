@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DevGui2のプロジェクト</string>
+    <string name="app_name">Blocks</string>
     <string name="title_activity_difficulty_select">難易の選択</string>
     <string name="title_activity_custom_difficulty">カスタム難易</string>
     <string name="title_activity_gridgame">Grid game</string>
