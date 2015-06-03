@@ -4,7 +4,6 @@
     <string name="title_activity_custom_difficulty">Difficulté personnalisée</string>
     <string name="title_activity_gridgame">Jeu de grille</string>
     <string name="title_activity_grid_maker_test">Test GridMaker</string>
-    <string name="title_name">projet DevGui</string>
     <string name="grid_size">Taille de la grille</string>
     <string name="width_string">largeur</string>
     <string name="height_string">hauteur</string>

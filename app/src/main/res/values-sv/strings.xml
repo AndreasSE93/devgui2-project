@@ -4,7 +4,6 @@
     <string name="title_activity_custom_difficulty">Anpassad svårighetsgrad</string>
     <string name="title_activity_gridgame">Grid game</string>
     <string name="title_activity_grid_maker_test">GridMaker test</string>
-    <string name="title_name">DevGui-projekt</string>
     <string name="grid_size">Rutnätsstorlek</string>
     <string name="width_string">Bredd</string>
     <string name="height_string">Höjd</string>

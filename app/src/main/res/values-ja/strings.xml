@@ -4,7 +4,6 @@
     <string name="title_activity_custom_difficulty">カスタム難易</string>
     <string name="title_activity_gridgame">Grid game</string>
     <string name="title_activity_grid_maker_test">GridMaker test</string>
-    <string name="title_name">「DevGui」のプロジェクト</string>
     <string name="grid_size">格子の大きさ</string>
     <string name="width_string">幅</string>
     <string name="height_string">高さ</string>
