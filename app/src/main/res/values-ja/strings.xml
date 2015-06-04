@@ -17,4 +17,7 @@
     <string name="min_string">ミン</string>
     <string name="max_string">マックス</string>
     <string name="block_size">ブロックの大きさ</string>
+    <string name="congratulations">やった！</string>
+    <string name="back_to_main_menu">メインメニューに帰る</string>
+    <string name="restart_game">新しいゲーム</string>
 </resources>
