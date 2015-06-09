@@ -23,10 +23,4 @@ public class MainScreen extends Activity {
 		Intent intent = new Intent(this, DifficultySelect.class);
 		startActivity(intent);
 	}
-
-    @Override
-    public void onNewIntent(Intent intent) {
-        setIntent(intent);
-        onResume();
-    }
 }
