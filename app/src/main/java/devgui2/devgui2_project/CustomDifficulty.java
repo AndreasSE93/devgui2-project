@@ -9,7 +9,7 @@ import android.widget.NumberPicker;
 
 
 public class CustomDifficulty extends Activity {
-	NumberPicker gridHeightSpinner, gridWidthSpinner, blockMinSizeSpinner, blockMaxSizeSpinner;
+	private NumberPicker gridHeightSpinner, gridWidthSpinner, blockMinSizeSpinner, blockMaxSizeSpinner;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

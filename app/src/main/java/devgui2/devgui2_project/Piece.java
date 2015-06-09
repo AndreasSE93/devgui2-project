@@ -42,7 +42,7 @@ public class Piece {
         paint2.setColor(color2);
         for (int j = 0; j < ySize; j++) {
             for (int i = 0; i < xSize; i++) {
-                if(shape[i][j] == true) {
+                if(shape[i][j]) {
                     temp.drawRect(i*blockLength, j*blockLength, (i+1)*blockLength+1, (j+1)*blockLength+1, paint2);
                     temp.drawRect(i*blockLength+1, j*blockLength+1, (i+1)*blockLength, (j+1)*blockLength, paint);
                 }

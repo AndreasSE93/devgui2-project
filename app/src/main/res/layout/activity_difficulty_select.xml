@@ -1,110 +1,109 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                tools:context=".MainScreen"
-                android:touchscreenBlocksFocus="true"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".DifficultySelect"
     >
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title_activity_difficulty_select"
-        android:id="@+id/title"
-        android:textSize="40sp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:text="@string/title_activity_difficulty_select"
+        android:textSize="40sp"
+        />
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/linearLayout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/title"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:gravity="center_vertical|center_horizontal"
-        android:id="@+id/linearLayout">
+        android:orientation="vertical"
+        >
 
         <Space
-            android:layout_width="20px"
-            android:layout_height="20px"
-            android:layout_weight="0.5"/>
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_weight="0.5"
+            />
 
         <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/easy_difficulty"
             android:id="@+id/easyButton"
-            android:focusable="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:enabled="true"
-            android:textSize="40sp"
-            android:layout_below="@+id/title"
-            android:layout_centerHorizontal="true"
+            android:focusable="true"
             android:onClick="play"
-            android:layout_weight="1"/>
+            android:text="@string/easy_difficulty"
+            android:textSize="40sp"
+            />
 
         <Space
-            android:layout_width="20px"
-            android:layout_height="20px"
-            android:layout_weight="0.5"/>
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_weight="0.5"
+            />
 
         <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/medium_difficulty"
             android:id="@+id/mediumButton"
-            android:focusable="true"
-            android:enabled="true"
-            android:textSize="40sp"
-            android:layout_above="@+id/hardButton"
-            android:layout_centerHorizontal="true"
-            android:layout_weight="1"
-            android:onClick="play"/>
-
-        <Space
-            android:layout_width="20px"
-            android:layout_height="20px"
-            android:layout_weight="0.5"/>
-
-        <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/hard_difficulty"
+            android:layout_weight="1"
+            android:enabled="true"
+            android:focusable="true"
+            android:onClick="play"
+            android:text="@string/medium_difficulty"
+            android:textSize="40sp"
+            />
+
+        <Space
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_weight="0.5"
+            />
+
+        <Button
             android:id="@+id/hardButton"
-            android:focusable="true"
-            android:enabled="true"
-            android:textSize="40sp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_weight="1"
-            android:onClick="play"/>
-
-        <Space
-            android:layout_width="20px"
-            android:layout_height="20px"
-            android:layout_weight="0.5"/>
-
-        <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/custom_difficulty"
-            android:id="@+id/customButton"
-            android:focusable="true"
+            android:layout_weight="1"
             android:enabled="true"
+            android:focusable="true"
+            android:onClick="play"
+            android:text="@string/hard_difficulty"
             android:textSize="40sp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:onClick="custom"
-            android:layout_weight="1"/>
+            />
 
         <Space
-            android:layout_width="20px"
-            android:layout_height="20px"
-            android:layout_weight="0.5"/>
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_weight="0.5"
+            />
+
+        <Button
+            android:id="@+id/customButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:enabled="true"
+            android:focusable="true"
+            android:onClick="custom"
+            android:text="@string/custom_difficulty"
+            android:textSize="40sp"
+            />
+
+        <Space
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_weight="0.5"
+            />
     </LinearLayout>
 
 </RelativeLayout>

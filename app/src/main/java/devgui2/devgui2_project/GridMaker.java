@@ -15,8 +15,8 @@ public class GridMaker {
 				grid[x][y] = -1;
 			}
 		}
-		List<Integer> pieceSizes = new LinkedList<Integer>();
-		List<Integer> pieceMaxSizes = new LinkedList<Integer>();
+		List<Integer> pieceSizes = new LinkedList<>();
+		List<Integer> pieceMaxSizes = new LinkedList<>();
 		emptyCellFinder:
 		while (true) {
 			int x = (int)(Math.random() * gridWidth);

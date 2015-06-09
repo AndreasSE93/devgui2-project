@@ -8,53 +8,46 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewTreeObserver;
 
 public class GridGame extends Activity {
-	Piece[] pieces;
-	int gridWidth, gridHeight;
-	boolean[][] grid;
-	long startTime;
-	int moves = 0;
+	private Piece[] pieces;
+	private int gridWidth, gridHeight;
+	private boolean[][] grid;
+	private long startTime;
+	private int moves = 0;
 
-	Integer canvasSavedWidth, canvasSavedHeight;
-	boolean touchPointDown[] = new boolean[10];
-	float touchPointStartX[] = new float[10];
-	float touchPointStartY[] = new float[10];
-	float touchPointX[] = new float[10];
-	float touchPointY[] = new float[10];
-	float touchPieceStartX;
-	float touchPieceStartY;
-	double touchPointStartRot;
-	double touchPieceStartRot;
-	int touchMovingPiece;
-	float gridX1, gridY1, gridX2, gridY2, blockLength;
-	DrawView drawView;
+	private Integer canvasSavedWidth, canvasSavedHeight;
+	private boolean touchPointDown[] = new boolean[10];
+	private float touchPointStartX[] = new float[10];
+	private float touchPointStartY[] = new float[10];
+	private float touchPointX[] = new float[10];
+	private float touchPointY[] = new float[10];
+	private float touchPieceStartX;
+	private float touchPieceStartY;
+	private double touchPointStartRot;
+	private double touchPieceStartRot;
+	private int touchMovingPiece;
+	private float gridX1, gridY1, gridX2, gridY2, blockLength;
 
-	boolean sfx;
-	boolean bgm;
-	MediaPlayer musicPlayer;
-	MediaPlayer winPlayer;
+	private boolean bgm;
+	private MediaPlayer musicPlayer;
 
 	@Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		sfx = sharedPrefs.getBoolean("pref_sound_fx", true);
 		bgm = sharedPrefs.getBoolean("pref_sound_music", true);
-		if (bgm == true) {
+		if (bgm) {
 			musicPlayer = MediaPlayer.create(this, R.raw.bgmloop);
 			musicPlayer.setLooping(true);
 			musicPlayer.start();
 		}
-		if (sfx == true) {
-			winPlayer = MediaPlayer.create(this, R.raw.sfxwin);
-		}
         setContentView(R.layout.activity_gridgame);
-        final DrawView drawView = new DrawView(this, getIntent().getExtras());
-		this.drawView = drawView;
+        final DrawView drawView = new DrawView(this);
 
 		/*
 		drawView.pointColor[0] = 0xDDFFFFFF;
@@ -137,20 +130,20 @@ public class GridGame extends Activity {
 				    gridY2 = canvasHeight - yMargin;
 			    }
 
-			    for (int i = 0; i < pieces.length; i++) {
-				    pieces[i].initBitmap(blockLength);
-				    /*
-				    if (savedInstanceState != null) {
-					    final int oldWidth  = savedInstanceState.getInt("canvasWidth");
-					    final int oldHeight = savedInstanceState.getInt("canvasHeight");
-					    pieces[i].setX((int)(((float)(pieces[i].getX())) / oldWidth  * canvasWidth));
-					    pieces[i].setY((int)(((float)(pieces[i].getY())) / oldHeight * canvasHeight));
-				    } else {
-				    */
-					    pieces[i].setX((int) (Math.random() * (canvasWidth - pieces[i].getBitmap().getWidth())));
-					    pieces[i].setY((int) (Math.random() * (canvasHeight - pieces[i].getBitmap().getHeight())));
-				    //}
-			    }
+                for (Piece piece : pieces) {
+                    piece.initBitmap(blockLength);
+                    /*
+                    if (savedInstanceState != null) {
+                        final int oldWidth = savedInstanceState.getInt("canvasWidth");
+                        final int oldHeight = savedInstanceState.getInt("canvasHeight");
+                        piece.setX((int) (((float) (piece.getX())) / oldWidth * canvasWidth));
+                        piece.setY((int) (((float) (piece.getY())) / oldHeight * canvasHeight));
+                    } else {
+                    */
+                        piece.setX((int) (Math.random() * (canvasWidth - piece.getBitmap().getWidth())));
+                        piece.setY((int) (Math.random() * (canvasHeight - piece.getBitmap().getHeight())));
+                    //}
+                }
 			    drawView.init(gridX1, gridY1, gridX2, gridY2, gridWidth, gridHeight, blockLength);
 			    drawView.setPieces(pieces);
 
@@ -334,11 +327,11 @@ public class GridGame extends Activity {
 		return false;
 	}
 
-	private boolean checkWin() {
+	private void checkWin() {
 		for (int x = 0; x < grid.length; x++) {
 			for (int y = 0; y < grid[x].length; y++) {
 				if (!grid[x][y]) {
-					return false;
+                    return;
 				}
 			}
 		}
@@ -347,13 +340,12 @@ public class GridGame extends Activity {
 		intent.putExtra("moveCount",  moves);
 		intent.putExtra("solveTime",  System.currentTimeMillis() - startTime);
 		startActivity(intent);
-		return true;
-	}
+    }
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (bgm == true) {
+		if (bgm) {
 			musicPlayer.pause();
 		}
 	}
@@ -361,7 +353,7 @@ public class GridGame extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (bgm == true) {
+		if (bgm) {
 			musicPlayer.start();
 		}
 	}
@@ -369,7 +361,7 @@ public class GridGame extends Activity {
 	@Override
 	protected void onDestroy() {
 		super.onStop();
-		if (bgm == true) {
+		if (bgm) {
 			musicPlayer.stop();
 		}
 	}

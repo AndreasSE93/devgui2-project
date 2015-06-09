@@ -8,29 +8,19 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 
 public class DrawView extends View
 {
-    Bundle bundle;
-    Paint paint = new Paint();
-    int gridWidth, gridHeight;
-	float gridX1, gridY1, gridX2, gridY2; // Grid coordinates
-	float blockLength;
-    Piece[] pieces;
+    private Paint paint = new Paint();
+    private int gridWidth, gridHeight;
+	private float gridX1, gridY1, gridX2, gridY2; // Grid coordinates
+	private float blockLength;
+    private Piece[] pieces;
 
-	float pointX[] = new float[100];
-	float pointY[] = new float[100];
-	int pointColor[] = new int[100];
-
-    public DrawView(Context context, Bundle bundle)
-    {
+    public DrawView(Context context) {
         super(context);
         paint.setColor(Color.GRAY);
-        this.bundle = bundle;
     }
 
     @Override
@@ -95,7 +85,7 @@ public class DrawView extends View
 		this.gridWidth  = gridWidth;
 		this.gridHeight = gridHeight;
 		this.blockLength = blockLength;
-	};
+	}
 
     public void setPieces(Piece[] pieces) {
         this.pieces = pieces;
