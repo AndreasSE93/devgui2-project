@@ -32,7 +32,8 @@
         </activity>
         <activity
             android:name=".GridGame"
-            android:label="@string/title_activity_gridgame" >
+            android:label="@string/title_activity_gridgame"
+            android:screenOrientation="locked" >
         </activity>
         <activity
             android:name=".GridMakerTest"
