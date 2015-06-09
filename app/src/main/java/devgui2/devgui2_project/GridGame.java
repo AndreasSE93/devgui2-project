@@ -56,7 +56,7 @@ public class GridGame extends Activity {
 		drawView.pointColor[3] = 0xDD0000FF;
 		*/
 
-        drawView.setBackgroundColor(Color.BLACK);
+        drawView.setBackgroundColor(0xA0000000); // 75% opaque, black background - the system's default background gradient will shine through
         setContentView(drawView);
 	    final int gridWidth    = getIntent().getIntExtra("gridWidth",    5);
 	    final int gridHeight   = getIntent().getIntExtra("gridHeight",   5);
