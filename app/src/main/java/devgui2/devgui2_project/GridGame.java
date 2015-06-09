@@ -8,10 +8,11 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewTreeObserver;
+
+import java.util.Arrays;
 
 public class GridGame extends Activity {
 	private Piece[] pieces;
@@ -64,15 +65,17 @@ public class GridGame extends Activity {
 	    final int blockMaxSize = getIntent().getIntExtra("blockMaxSize", 3);
 		this.gridWidth  = gridWidth;
 		this.gridHeight = gridHeight;
-		/*
 	    if (savedInstanceState != null) {
-		    this.pieces = (Piece[])savedInstanceState.getSerializable("pieces");
-		    this.grid = (boolean[][])savedInstanceState.getSerializable("grid");
+            // Arrays are saved as Serializable Object arrays, but Object arrays can't be type
+            // casted, but casting can be done while using Arrays.copyOf instead.
+            Object[] pieces = (Object[])savedInstanceState.getSerializable("pieces");
+            this.pieces = Arrays.copyOf(pieces, pieces.length, Piece[].class);
+            Object[] grid = (Object[])savedInstanceState.getSerializable("grid");
+            this.grid   = Arrays.copyOf(grid,   grid.length,   boolean[][].class);
 	    } else {
-	    */
 		    this.pieces = GridMaker.makeGrid(gridWidth, gridHeight, blockMinSize, blockMaxSize);
 		    this.grid = new boolean[gridWidth][gridHeight];
-	    //}
+	    }
 	    final Piece[] pieces = this.pieces;
 	    drawView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 		    @Override
@@ -132,17 +135,15 @@ public class GridGame extends Activity {
 
                 for (Piece piece : pieces) {
                     piece.initBitmap(blockLength);
-                    /*
                     if (savedInstanceState != null) {
                         final int oldWidth = savedInstanceState.getInt("canvasWidth");
                         final int oldHeight = savedInstanceState.getInt("canvasHeight");
                         piece.setX((int) (((float) (piece.getX())) / oldWidth * canvasWidth));
                         piece.setY((int) (((float) (piece.getY())) / oldHeight * canvasHeight));
                     } else {
-                    */
                         piece.setX((int) (Math.random() * (canvasWidth - piece.getBitmap().getWidth())));
                         piece.setY((int) (Math.random() * (canvasHeight - piece.getBitmap().getHeight())));
-                    //}
+                    }
                 }
 			    drawView.init(gridX1, gridY1, gridX2, gridY2, gridWidth, gridHeight, blockLength);
 			    drawView.setPieces(pieces);
@@ -156,12 +157,10 @@ public class GridGame extends Activity {
 
 	@Override
 	public void onSaveInstanceState(Bundle bundle) {
-		/*
 		bundle.putSerializable("pieces", this.pieces);
 		bundle.putSerializable("grid", this.grid);
 		bundle.putInt("canvasWidth", canvasSavedWidth);
 		bundle.putInt("canvasHeight", canvasSavedHeight);
-		*/
 	}
 
 	@Override

@@ -5,15 +5,20 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import java.io.IOException;
+import java.io.NotActiveException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+
 /**
  * Created by redhotsmasher on 2015-05-29.
  */
-public class Piece {
+public class Piece implements Serializable {
 
     private int color;
     private int pattern;
     private boolean[][] shape;
-    private Bitmap bitmap;
+    private transient Bitmap bitmap;
     private int x;
     private int y;
     private float rot;
