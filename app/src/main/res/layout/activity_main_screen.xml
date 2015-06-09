@@ -69,9 +69,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/scores_button"
-            android:id="@+id/hardButton"
-            android:focusable="true"
-            android:enabled="true"
+            android:id="@+id/scoresButton"
+            android:enabled="false"
+            android:focusable="false"
             android:textSize="40sp"
             android:layout_weight="1"
             />

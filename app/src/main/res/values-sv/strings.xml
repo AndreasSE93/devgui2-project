@@ -21,4 +21,5 @@
     <string name="win_stats">På {3} sekunder, med hjälp av {1} drag, lyckades du få in alla {2} bitarna i rutnätet.</string>
     <string name="restart_game">Starta om spel</string>
     <string name="back_to_main_menu">Tillbaka till huvudmenyn</string>
+    <string name="not_yet_implemented" >(Inte implementerad ännu)</string>
 </resources>

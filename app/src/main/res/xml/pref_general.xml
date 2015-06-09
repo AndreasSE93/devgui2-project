@@ -3,6 +3,9 @@
     <CheckBoxPreference
         android:key="color_blind_checkbox"
         android:title="@string/pref_title_color_blind_mode"
-        android:defaultValue="false" />
+        android:defaultValue="false"
+        android:enabled="false"
+        android:summary="@string/not_yet_implemented"
+        />
 
 </PreferenceScreen>
