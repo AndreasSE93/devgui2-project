@@ -1,6 +1,7 @@
 package devgui2.devgui2_project;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.preference.PreferenceManager;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 
 public class WinScreen extends Activity {
+    private MediaPlayer winPlayer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +32,26 @@ public class WinScreen extends Activity {
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean sfx = sharedPrefs.getBoolean("pref_sound_fx", true);
 		if (sfx) {
-			MediaPlayer winPlayer = MediaPlayer.create(this, R.raw.sfxwin);
+			winPlayer = MediaPlayer.create(this, R.raw.sfxwin);
 			winPlayer.start();
 		}
 	}
 
 	public void restart(View view) {
+        setResult(R.integer.RESTART_GAME);
+        finish();
 	}
 
 	public void menu(View view) {
+        Intent intent = new Intent(this, MainScreen.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
 	}
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        winPlayer.release();
+    }
 }

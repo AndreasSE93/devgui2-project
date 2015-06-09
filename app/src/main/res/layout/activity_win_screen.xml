@@ -45,7 +45,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:enabled="false"
             android:onClick="restart"
             android:text="@string/restart_game"
             />
@@ -56,7 +55,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:enabled="false"
             android:onClick="menu"
             android:text="@string/back_to_main_menu"
             />

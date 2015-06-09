@@ -339,10 +339,26 @@ public class GridGame extends Activity {
 		intent.putExtra("pieceCount", pieces.length);
 		intent.putExtra("moveCount",  moves);
 		intent.putExtra("solveTime",  System.currentTimeMillis() - startTime);
-		startActivity(intent);
+		startActivityForResult(intent, R.integer.WIN_SCREEN_REQUEST);
+
     }
 
-	@Override
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == R.integer.WIN_SCREEN_REQUEST) {
+            if (resultCode == R.integer.RESTART_GAME) {
+                Intent intent = new Intent(this, this.getClass());
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtras(getIntent());
+                startActivity(intent);
+            } else {
+                finish();
+            }
+        }
+    }
+
+    @Override
 	protected void onPause() {
 		super.onPause();
 		if (bgm) {
@@ -363,6 +379,7 @@ public class GridGame extends Activity {
 		super.onStop();
 		if (bgm) {
 			musicPlayer.stop();
+			musicPlayer.release();
 		}
 	}
 }

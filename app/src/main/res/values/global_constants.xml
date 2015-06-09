@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="WIN_SCREEN_REQUEST">1</integer>
+
+    <integer name="RESTART_GAME">1</integer>
+</resources>
