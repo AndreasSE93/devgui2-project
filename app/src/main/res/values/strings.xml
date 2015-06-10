@@ -18,9 +18,9 @@
     <string name="max_string">Max</string>
     <string name="block_size">Block size</string>
     <string name="title_activity_win_screen">Win screen</string>
-    <string name="action_settings">Settings</string>
     <string name="congratulations">Congratulations!</string>
     <string name="win_stats">In {1} moves, spanning {3} seconds, you managed to fit all {2} pieces into the grid.</string>
     <string name="restart_game">Restart game</string>
     <string name="back_to_main_menu">Back to main menu</string>
+    <string name="not_yet_implemented" >(Not yet implemented)</string>
 </resources>

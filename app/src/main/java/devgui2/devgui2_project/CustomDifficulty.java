@@ -9,7 +9,7 @@ import android.widget.NumberPicker;
 
 
 public class CustomDifficulty extends Activity {
-	NumberPicker gridHeightSpinner, gridWidthSpinner, blockMinSizeSpinner, blockMaxSizeSpinner;
+	private NumberPicker gridHeightSpinner, gridWidthSpinner, blockMinSizeSpinner, blockMaxSizeSpinner;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,7 @@ public class CustomDifficulty extends Activity {
 		blockMaxSizeSpinner.setValue(5);
 	}
 
+	// onClick from activity_custom_difficulty.xml
 	public void startGame(View view) {
 		Intent intent = new Intent(this, GridGame.class);
 		intent.putExtra("gridWidth",    gridWidthSpinner   .getValue());

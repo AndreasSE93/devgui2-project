@@ -5,15 +5,17 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import java.io.Serializable;
+
 /**
  * Created by redhotsmasher on 2015-05-29.
  */
-public class Piece {
+public class Piece implements Serializable {
 
     private int color;
     private int pattern;
     private boolean[][] shape;
-    private Bitmap bitmap;
+    private transient Bitmap bitmap;
     private int x;
     private int y;
     private float rot;
@@ -29,9 +31,6 @@ public class Piece {
     public void initBitmap(float blockLength) {
         int xSize = this.shape.length;
         int ySize = this.shape[0].length;
-        //android.util.Log.i("PieceXSize: ", ((Integer) xSize).toString());
-        //android.util.Log.i("PieceYSize: ", ((Integer) ySize).toString());
-        //android.util.Log.i("BlockLength: ", ((Float) blockLength).toString());
         bitmap = Bitmap.createBitmap((int)(xSize*blockLength)+1, (int)(ySize*blockLength)+1, Bitmap.Config.ARGB_8888);
         int color2 = Color.argb(255, Color.red(color)/2, Color.green(color)/2,Color.blue(color)/2);
         Canvas temp = new Canvas(bitmap);
@@ -42,7 +41,7 @@ public class Piece {
         paint2.setColor(color2);
         for (int j = 0; j < ySize; j++) {
             for (int i = 0; i < xSize; i++) {
-                if(shape[i][j] == true) {
+                if(shape[i][j]) {
                     temp.drawRect(i*blockLength, j*blockLength, (i+1)*blockLength+1, (j+1)*blockLength+1, paint2);
                     temp.drawRect(i*blockLength+1, j*blockLength+1, (i+1)*blockLength, (j+1)*blockLength, paint);
                 }
