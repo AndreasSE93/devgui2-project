@@ -37,6 +37,7 @@ public class CustomDifficulty extends Activity {
 		blockMaxSizeSpinner.setValue(5);
 	}
 
+	// onClick from activity_custom_difficulty.xml
 	public void startGame(View view) {
 		Intent intent = new Intent(this, GridGame.class);
 		intent.putExtra("gridWidth",    gridWidthSpinner   .getValue());

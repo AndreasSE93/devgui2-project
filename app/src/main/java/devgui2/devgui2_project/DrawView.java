@@ -1,8 +1,5 @@
 package devgui2.devgui2_project;
 
-/**
- * Created by redhotsmasher on 2015-05-27.
- */
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -10,12 +7,16 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
 
+/**
+ * DrawView handles all drawing during the game, including the grid and all the {@link Piece}s.
+ */
 public class DrawView extends View
 {
     private Paint paint = new Paint();
-    private int gridWidth, gridHeight;
-	private float gridX1, gridY1, gridX2, gridY2; // Grid coordinates
-	private float blockLength;
+    private int gridWidth, gridHeight; // Grid size in number of cells
+	private float gridX1, gridY1; // Coordinates for the grid's top-left     corner
+    private float gridX2, gridY2; // Coordinates for the grid's bottom-right corner
+	private float blockLength;    // Size in pixels for each grid cell
     private Piece[] pieces;
 
     public DrawView(Context context) {
@@ -26,16 +27,19 @@ public class DrawView extends View
     @Override
     public void onDraw(Canvas canvas)
     {
-        for (int i = 0; i <= gridWidth; i++) { //Draw longitudinal lines
-            float offset = (float)(i) * blockLength;
+        // Draw vertical  lines
+        for (int i = 0; i <= gridWidth; i++) {
+            float offset = i * blockLength;
             canvas.drawLine(gridX1 + offset, gridY1, gridX1 + offset, gridY2, paint);
         }
 
-        for (int i = 0; i <= gridHeight; i++) { //Draw latitudinal lines
-            float offset = (float)(i) * blockLength;
+        //Draw horizontal lines
+        for (int i = 0; i <= gridHeight; i++) {
+            float offset = i * blockLength;
             canvas.drawLine(gridX1, gridY1 + offset, gridX2, gridY1 + offset, paint);
         }
 
+        // Draw Pieces
         for (Piece piece : pieces) {
 	        float rot = piece.getRot();
 	        int x = piece.getX();

@@ -14,6 +14,7 @@ public class DifficultySelect extends Activity {
 		setContentView(R.layout.activity_difficulty_select);
 	}
 
+	// onClick from activity_difficulty_select.xml
 	public void play(View view) {
 		int gridWidth, gridHeight, blockMinSize, blockMaxSize;
 		switch (view.getId()) {
@@ -46,6 +47,7 @@ public class DifficultySelect extends Activity {
 		startActivity(intent);
 	}
 
+	// onClick from activity_difficulty_select.xml
 	public void custom(View view) {
 		Intent intent = new Intent(this, CustomDifficulty.class);
 		startActivity(intent);
