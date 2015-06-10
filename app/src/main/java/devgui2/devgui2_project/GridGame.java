@@ -47,18 +47,18 @@ public class GridGame extends Activity {
 			musicPlayer.setLooping(true);
 			musicPlayer.start();
 		}
-        setContentView(R.layout.activity_gridgame);
-        final DrawView drawView = new DrawView(this);
 
+        // Create a DrawView and display it
+        final DrawView drawView = new DrawView(this);
 		/*
 		drawView.pointColor[0] = 0xDDFFFFFF;
 		drawView.pointColor[1] = 0xDDFF0000;
 		drawView.pointColor[2] = 0xDD00FF00;
 		drawView.pointColor[3] = 0xDD0000FF;
 		*/
-
         drawView.setBackgroundColor(0xA0000000); // 75% opaque, black background - the system's default background gradient will shine through
         setContentView(drawView);
+
 	    final int gridWidth    = getIntent().getIntExtra("gridWidth",    5);
 	    final int gridHeight   = getIntent().getIntExtra("gridHeight",   5);
 	    final int blockMinSize = getIntent().getIntExtra("blockMinSize", 3);
