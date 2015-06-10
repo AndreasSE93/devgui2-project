@@ -59,12 +59,6 @@ public class GridGame extends Activity {
 
         // Create a DrawView and display it
         final DrawView drawView = new DrawView(this);
-		/*
-		drawView.pointColor[0] = 0xDDFFFFFF;
-		drawView.pointColor[1] = 0xDDFF0000;
-		drawView.pointColor[2] = 0xDD00FF00;
-		drawView.pointColor[3] = 0xDD0000FF;
-		*/
         drawView.setBackgroundColor(0xA0000000); // 75% opaque, black background - the system's default background gradient will shine through
         setContentView(drawView);
 
@@ -195,10 +189,6 @@ public class GridGame extends Activity {
 					for (int i = pieces.length - 1; i >= 0; i--) {
 						float px = pieces[i].getX();
 						float py = pieces[i].getY();
-						/*if (i == 0) {
-							android.util.Log.i("Original x: ", ((Float)x).toString());
-							android.util.Log.i("Original y: ", ((Float)y).toString());
-						}*/
 						boolean[][] shape = pieces[i].getShape();
 						Bitmap bitmap = pieces[i].getBitmap();
 
@@ -213,23 +203,6 @@ public class GridGame extends Activity {
 						y = (float)(r*Math.sin(theta/*-Math.toRadians(pieces[i].getRot())*/));
 						x = x+newpx;
 						y = y+newpy;
-						/*if(i == 0) {
-							android.util.Log.i("px: ", ((Float)px).toString());
-							android.util.Log.i("py: ", ((Float)py).toString());
-							android.util.Log.i("newpx: ", ((Float)newpx).toString());
-							android.util.Log.i("newpy: ", ((Float)newpy).toString());
-							android.util.Log.i("touchPointX[point]: ", ((Float)(touchPointX[point])).toString());
-							android.util.Log.i("touchPointY[point]: ", ((Float)(touchPointY[point])).toString());
-							android.util.Log.i("r: ", ((Double)r).toString());
-							android.util.Log.i("theta: ", ((Double)theta).toString());
-							android.util.Log.i("bloclLength: ", ((Float)blockLength).toString());
-							android.util.Log.i("relx: ", ((Float)relx).toString());
-							android.util.Log.i("rely: ", ((Float)rely).toString());
-							android.util.Log.i("x: ", ((Float)x).toString());
-							android.util.Log.i("y: ", ((Float)y).toString());
-							drawView.setCircle1(x, y);
-							drawView.setCircle2(newpx, newpy);
-						}*/
 
 						// Loop through each block of the Piece
 						for (int bx = 0; bx < shape.length; bx++) {
@@ -240,8 +213,6 @@ public class GridGame extends Activity {
 									touchMovingPiece = i;
 									touchPieceStartX = px;
 									touchPieceStartY = py;
-									//Log.d("GridGame", "Piece " + Integer.toString(touchMovingPiece[point]) + " touched with point " + Integer.toString(point) +
-									//		" x=" + Float.toString(x) + " px=" + Float.toString(px) + " bx=" + Integer.toString(bx) + " by=" + Integer.toString(by));
 									break findTouchedPiece;
 								}
 							}
@@ -296,8 +267,6 @@ public class GridGame extends Activity {
 					// Screen coordinates after snapping to grid
 					float snappedX = gridX1 + gridX * blockLength;
 					float snappedY = gridY1 + gridY * blockLength;
-					//drawView.pointX[0] = snappedX;
-					//drawView.pointY[0] = snappedY;
 
 					pieces[touchMovingPiece].setSnapping(false);
 					// If the new position is close to the position after snapping, try to snap

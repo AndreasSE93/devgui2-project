@@ -49,34 +49,7 @@ public class DrawView extends View
 	        canvas.rotate(rot, x + (bitmap.getWidth() / 2), y + (bitmap.getHeight() / 2));
 	        canvas.drawBitmap(bitmap, x, y, null);
 	        canvas.restore();
-            //canvas.drawCircle(x, y, 5.0f, paint);
-	        //android.util.Log.i("X: ", ((Integer) x).toString());
-	        //android.util.Log.i("Y: ", ((Integer) y).toString());
-	        //android.util.Log.i("Rot: ", ((Float) rot).toString());
-	        //android.util.Log.i("BitmapW: ", ((Integer) bitmap.getWidth()).toString());
-	        //android.util.Log.i("BitmapH: ", ((Integer) bitmap.getHeight()).toString());
-	        //int[] pixels = new int[100];
-	        //bitmap.getPixels(pixels, 0, bitmap.getWidth(), 0, 0, 9, 9);
-	        //android.util.Log.i("Bitmap: ", pixels.toString());
         }
-
-	    /*
-	    Paint paint = new Paint();
-	    for (int i = 0; i < pointX.length; i++) {
-		    paint.setColor(pointColor[i]);
-		    //canvas.drawCircle(pointX[i], pointY[i], 10.0f, paint);
-	    }
-	    */
-
-        //canvas.drawLine(startX, startY, endX, endY, paint);
-        //canvas.drawRect(xMargin, yMargin, drawWidth-xMargin, drawHeight-yMargin, paint);
-        /*
-        android.util.Log.i("drawWidth", ((Integer) drawWidth).toString());
-        android.util.Log.i("drawHeight", ((Integer)drawHeight).toString());
-        android.util.Log.i("aspectRatio", ((Float)aspectRatio).toString());
-        android.util.Log.i("xMargin", ((Float)xMargin).toString());
-        android.util.Log.i("yMargin", ((Float)yMargin).toString());
-        */
 
 	    this.invalidate();
     }

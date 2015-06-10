@@ -1,6 +1,5 @@
 package devgui2.devgui2_project;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,7 +32,6 @@ public class GridMaker {
 			// Pick a cell at random
 			int x = (int)(Math.random() * gridWidth);
 			int y = (int)(Math.random() * gridHeight);
-			//android.util.Log.d("GridMaker", "x=" + Integer.toString(x) + ", y=" + Integer.toString(y));
 
 			// If a the picked cell is occupied, go to the next cell
 			int origX = x, origY = y;
@@ -46,10 +44,8 @@ public class GridMaker {
 						y = 0;
 					}
 				}
-				//android.util.Log.d("GridMaker", "Occupied... x=" + Integer.toString(x) + ", y=" + Integer.toString(y));
 				if (x == origX && y == origY) {
 					// No more empty cells, so the grid has been filled
-					//android.util.Log.d("GridMaker", "No more empty spaces");
 					break emptyCellFinder;
 				}
 			}
@@ -76,7 +72,6 @@ public class GridMaker {
 					default:
 						throw new RuntimeException("No dir " + Integer.toString(dir));
 				}
-				//android.util.Log.d("GridMaker", "x=" + Integer.toString(x) + ", y=" + Integer.toString(y) + ", nX=" + Integer.toString(nX) + ", nY=" + Integer.toString(nY) + ", dir=" + Integer.toString(dir) + ", origDir=" + Integer.toString(origDir));
 
 				// Make sure the neighboring cell is in the grid
 				if (nX >= 0 && nY >= 0 && nX < gridWidth && nY < gridHeight) {
@@ -90,7 +85,6 @@ public class GridMaker {
 						grid[nX][nY] = nPiece;
 						pieceSizes.add(2);
 						pieceMaxSizes.add((int) (Math.random() * (maxSize - minSize + 1)) + minSize);
-						//android.util.Log.d("GridMaker", "New block: maxSize=" + pieceMaxSizes.get(pieceMaxSizes.size()-1).toString());
 						continue emptyCellFinder;
 					} else if (pieceSizes.get(nPiece) < pieceMaxSizes.get(nPiece)) {
 						// The neighboring piece's size can be bigger, so add the picked
@@ -99,8 +93,6 @@ public class GridMaker {
 						pieceSizes.set(nPiece, pieceSizes.get(nPiece) + 1);
 						continue emptyCellFinder;
 					}
-				} else {
-					//android.util.Log.d("GridMaker", "Neighbor outside grid: nX=" + Integer.toString(nX) + ", xY=" + Integer.toString(nY));
 				}
 
 				// The picked the cell could not be joined with
@@ -113,7 +105,6 @@ public class GridMaker {
 			}
 
 			// Could not join the picked cell with any of its neighbors, so create a 1x1 piece
-			android.util.Log.d("GridMaker", "Block can't join with any neighbor: (" + Integer.toString(x) + ", " + Integer.toString(y) + ")");
 			grid[x][y] = pieceSizes.size();
 			pieceSizes.add(1);
 			pieceMaxSizes.add(1);
@@ -146,14 +137,8 @@ public class GridMaker {
 					blockMap[x][y] = grid[minX + x][minY + y] == i;
 				}
 			}
-			//android.util.Log.d("GridMaker", Integer.toString(minX) + " " + Integer.toString(maxX) + " " + Integer.toString(minY) + " " + Integer.toString(maxY));
-			android.util.Log.d("GridMaker", "Block " + Integer.toString(i) + ": " + Arrays.deepToString(blockMap));
 			pieces[i] = new Piece(color, 0, blockMap);
 		}
-		android.util.Log.i("GridMaker", "Grid done (" + Integer.toString(pieces.length) + " Pieces)");
-		android.util.Log.i("GridMaker", "Grid: " + Arrays.deepToString(grid));
-		android.util.Log.d("GridMaker", "Block sizes:     " + Arrays.toString(pieceSizes.toArray()));
-		android.util.Log.d("GridMaker", "Block max sizes: " + Arrays.toString(pieceMaxSizes.toArray()));
 		return pieces;
 	}
 }

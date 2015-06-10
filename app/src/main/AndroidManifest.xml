@@ -36,10 +36,6 @@
             android:screenOrientation="locked" >
         </activity>
         <activity
-            android:name=".GridMakerTest"
-            android:label="@string/title_activity_grid_maker_test" >
-        </activity>
-        <activity
             android:name=".WinScreen"
             android:label="@string/title_activity_win_screen"
             android:theme="@android:style/Theme.Holo.Dialog.NoActionBar" >
