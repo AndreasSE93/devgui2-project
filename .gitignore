@@ -28,9 +28,9 @@ proguard/
 
 
 /local.properties
-/.idea/workspace.xml
-/.idea/libraries
+/.idea
 /build
+*.iml
 
 
 # Backups
@@ -59,4 +59,4 @@ Desktop.ini
 *.zip
 *.rar
 *.dmg
-app/app.iml
+
