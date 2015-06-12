@@ -37,6 +37,8 @@ public class GridGame extends Activity {
 	private double touchPointStartRot;                  // Initial direction from first touch point to second touch point
 	private double touchPieceStartRot;                  // Initial rotation of the moving Piece
 	private int touchMovingPiece;                       // Index in pieces[] for Piece that is currently being moved
+	private int touchOffsetX;							// Offsets to compensate for the fact that our view is usually not drawn at screen location (0, 0) due to the
+	private int touchOffsetY;							// status bar etc,,so we need to factor that in when dealing with touch input, hence these offsets.
 
 	private float gridX1, gridY1;  // Coordinates for the grid's top-left     corner
     private float gridX2, gridY2;  // Coordinates for the grid's bottom-right corner
@@ -44,13 +46,16 @@ public class GridGame extends Activity {
 
 	private boolean musicEnabled;
 	private MediaPlayer musicPlayer;
+	private DrawView drawView;
 
 	@Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+		// Load preferences
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		musicEnabled = sharedPrefs.getBoolean("pref_sound_music", true);
+		// Begin playing looping background music if enabled
 		if (musicEnabled) {
 			musicPlayer = MediaPlayer.create(this, R.raw.bgmloop);
 			musicPlayer.setLooping(true);
@@ -58,7 +63,7 @@ public class GridGame extends Activity {
 		}
 
         // Create a DrawView and display it
-        final DrawView drawView = new DrawView(this);
+        drawView = new DrawView(this);
         drawView.setBackgroundColor(0xA0000000); // 75% opaque, black background - the system's default background gradient will shine through
         setContentView(drawView);
 
@@ -87,6 +92,10 @@ public class GridGame extends Activity {
 			    drawView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 			    canvasWidth  = drawView.getWidth();
 			    canvasHeight = drawView.getHeight();
+				int[] touchOffsets = new int[2];
+				drawView.getLocationOnScreen(touchOffsets);
+				touchOffsetX = touchOffsets[0];
+				touchOffsetY = touchOffsets[1];
 			    final float aspectRatio = (float)canvasWidth / (float)canvasHeight;
 			    float xMargin, yMargin;  // Pixels between edges of the screen and the grid
 			    if (aspectRatio > 0.5 && aspectRatio < 2.0) {
@@ -112,21 +121,23 @@ public class GridGame extends Activity {
 			    final float gridRatio = (float)gridWidth / (float)gridHeight;
 			    final float gridAreaWidth = (float)canvasWidth - 2.0f * xMargin;
 			    final float gridAreaHeight = (float)canvasHeight - 2 * yMargin;
-			    if (gridRatio > 1) {
-				    //Wide
+			    // Checks the aspect ratio and calculates the grid size
+				if (gridRatio > 1) {
+				    // Wide
 				    blockLength = gridAreaWidth / gridWidth;
 				    gridX1 = xMargin;
 				    gridY1 = (canvasHeight / 2.0f) - (blockLength * gridHeight / 2.0f);
 				    gridX2 = canvasWidth - xMargin;
 				    gridY2 = gridY1 + blockLength * gridHeight;
 			    } else if (gridRatio < 1.0f) {
-				    //Tall
+				    // Tall
 				    blockLength = gridAreaHeight / gridHeight;
 				    gridX1 = (canvasWidth / 2.0f) - (blockLength * gridWidth / 2.0f);
 				    gridY1 = yMargin;
 				    gridX2 = gridX1 + blockLength * gridWidth;
 				    gridY2 = canvasHeight - yMargin;
 			    } else {
+					// Square
 				    blockLength = gridAreaWidth / gridWidth;
 				    gridX1 = xMargin;
 				    gridY1 = yMargin;
@@ -173,8 +184,8 @@ public class GridGame extends Activity {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		int point = event.getActionIndex();
-		float x = event.getX(point);
-		float y = event.getY(point);
+		float x = event.getX(point) - touchOffsetX;
+		float y = event.getY(point) - touchOffsetY;
 		switch (event.getActionMasked()) {
 			case MotionEvent.ACTION_DOWN:         // First touch point down
 			case MotionEvent.ACTION_POINTER_DOWN: // Additional touch point down

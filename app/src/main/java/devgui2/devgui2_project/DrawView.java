@@ -27,7 +27,7 @@ public class DrawView extends View
     @Override
     public void onDraw(Canvas canvas)
     {
-        // Draw vertical  lines
+        // Draw vertical lines
         for (int i = 0; i <= gridWidth; i++) {
             float offset = i * blockLength;
             canvas.drawLine(gridX1 + offset, gridY1, gridX1 + offset, gridY2, paint);
@@ -45,10 +45,10 @@ public class DrawView extends View
 	        int x = piece.getX();
 	        int y = piece.getY();
 	        Bitmap bitmap = piece.getBitmap();
-	        canvas.save();
-	        canvas.rotate(rot, x + (bitmap.getWidth() / 2), y + (bitmap.getHeight() / 2));
-	        canvas.drawBitmap(bitmap, x, y, null);
-	        canvas.restore();
+	        canvas.save();                                                                      // These four lines handle rotated drawing.
+	        canvas.rotate(rot, x + (bitmap.getWidth() / 2), y + (bitmap.getHeight() / 2));      //
+	        canvas.drawBitmap(bitmap, x, y, null);                                              //
+	        canvas.restore();                                                                   //
         }
 
 	    this.invalidate();

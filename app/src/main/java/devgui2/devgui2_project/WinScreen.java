@@ -31,7 +31,7 @@ public class WinScreen extends Activity {
 		text = text.replace("{3}", Long.toString(solveTime / 1000));
 		textView.setText(text);
 
-		// Play win tune if sound effects are enabled
+		// Play win sound if sound effects are enabled
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean soundEnabled = sharedPrefs.getBoolean("pref_sound_fx", true);
 		if (soundEnabled) {
