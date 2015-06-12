@@ -20,4 +20,6 @@
     <string name="back_to_main_menu">Zurück zum Hauptmenü</string>
     <string name="congratulations">Sie haben gewonnen!</string>
     <string name="restart_game">Neues Spiel</string>
+    <string name="not_yet_implemented">(Nicht noch implementiert)</string>
+    <string name="win_stats">Sie haben mit {1} Züge, nach {3} Sekunden, alle {2} Puzzelteile ins Gitter platziert.</string>
 </resources>

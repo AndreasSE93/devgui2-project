@@ -20,4 +20,6 @@
     <string name="congratulations">やった！</string>
     <string name="back_to_main_menu">メインメニューに帰る</string>
     <string name="restart_game">新しいゲーム</string>
+    <string name="not_yet_implemented">（まだ実現してない）</string>
+    <string name="win_stats">{1}手で、{3}秒で、あなたは全て{2}ピースを首尾よく載りました。</string>
 </resources>
